@@ -1,0 +1,41 @@
+body{
+    background-color: rgba(213, 217, 218, 0.1);
+}
+.nav-link {
+    color: white;  
+}
+.nav-products {
+    display: flex;
+    gap: 30px;
+    background-color: #232F3E;
+    justify-content: center;
+    align-items: center;
+}
+.nav-products .nav-link:hover {
+  color: var(--bs-warning) !important;
+}
+.cards img{
+    padding: 5px;
+}
+.container__cards {
+    margin: 15px 25px;
+    height: 400px;
+}
+.card__body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    text-align: center;
+}
+.bu{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+.bu button{
+    width: 83.91px;
+}

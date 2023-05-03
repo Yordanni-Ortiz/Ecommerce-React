@@ -1,0 +1,34 @@
+#header .navbar-brand {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+}
+
+#header .navbar-brand:hover, #header .nav-link:hover {
+  color: var(--bs-warning);
+}
+
+#header .nav-link {
+  color: white;
+}
+
+.custom-navbar {
+  background-color: #131921;
+}
+
+.offcanvas-header {
+  background-color: #131921;
+  color: white;
+}
+.offcanvas-body {
+  background-color: #232F3E;
+  color: white;
+}
+.btn-close {
+  background-color: #ff7700;
+
+}
+.navbar-toggler {
+  background-color: hsl(28, 100%, 50%);
+
+}
