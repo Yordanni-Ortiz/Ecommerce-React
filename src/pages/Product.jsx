@@ -21,7 +21,7 @@ const Product = () => {
   useEffect(() => {
     dispatch(setIsLoading(true));
     axios
-      .get(`https://ecommerce-api-ze05.onrender.com/api/v1/products/${id}/`)
+      .get(`https://ecommerce-api-94zo.onrender.com/api/v1/products/${id}/`)
       .then((resp) => {
         setDetail(resp?.data);
         filterClass(resp?.data?.categoryId);

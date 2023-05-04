@@ -15,7 +15,7 @@ export const userPurchasesSlice = createSlice({
 export const getUserPurchasesThunk = () => dispatch => {
     dispatch(setIsLoading(true));
     axios
-        .get("https://ecommerce-api-ze05.onrender.com/api/v1/purchases", getConfig())
+        .get("https://ecommerce-api-94zo.onrender.com/api/v1/purchases", getConfig())
 	.then(res => dispatch(setUserPurchases(res.data.data.purchases)))
 	.catch(err => console.log(err.response))
 	.finally(() => dispatch(setIsLoading(false)));
@@ -25,7 +25,7 @@ export const addUserPurchaseThunk = purchase => dispatch => {
     dispatch(setIsLoading(true));
     axios
         .post(
-	    "https://ecommerce-api-ze05.onrender.com/api/v1/purchases",
+	    "https://ecommerce-api-94zo.onrender.com/api/v1/purchases",
 	    {
                 street: "Green St. 1456",
                 colony: "Southwest",

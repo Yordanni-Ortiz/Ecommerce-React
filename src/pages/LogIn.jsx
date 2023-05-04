@@ -9,8 +9,8 @@ import {setIsLogged} from "/src/store/slices/isLogged.slice";
 import {setIsLoading} from "/src/store/slices/isLoading.slice";
 
 const Login = () => {
-  const [email, setEmail] = useState("yordannimod@gmail.com");
-  const [password, setPassword] = useState("yordanni1234");
+  const [email, setEmail] = useState("test@gmail.com");
+  const [password, setPassword] = useState("test1234");
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const Login = () => {
     };
 
     axios
-      .post("https://ecommerce-api-ze05.onrender.com/api/v1/users/login", data)
+      .post("https://ecommerce-api-94zo.onrender.com/api/v1/users/login", data)
       .then((resp) => {
         localStorage.setItem("token", resp.data.token);
 	dispatch(setIsLogged());

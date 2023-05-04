@@ -44,7 +44,7 @@ function Cart({ sendLaunch, launch }) {
     dispatch(setIsLoading(true));
     axios
       .delete(
-        "https://ecommerce-api-ze05.onrender.com/api/v1/cart/" + id,
+        "https://ecommerce-api-94zo.onrender.com/api/v1/cart/" + id,
         getConfig()
       )
       .then((res) => dispatch(getCartProductsThunk()))

@@ -31,7 +31,7 @@ const Products= () => {
   useEffect(() => {
     dispatch(getProductsThunk());
     axios
-      .get(`https://ecommerce-api-ze05.onrender.com/api/v1/categories`)
+      .get(`https://ecommerce-api-94zo.onrender.com/api/v1/categories`)
       .then((resp) => setCategories(resp?.data))
       .catch((error) => console.error(error));
   }, []);
