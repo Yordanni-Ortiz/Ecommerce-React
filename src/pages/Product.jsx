@@ -7,7 +7,7 @@ import { Button, Col, Row, Card } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { addCartProductThunk } from "../store/slices/cartProducts.slice";
 import Container from "react-bootstrap/Container";
-
+import '../assets/styles/Product.css'
 import { Cart } from "react-bootstrap-icons";
 
 const Product = () => {
@@ -60,7 +60,7 @@ const Product = () => {
                       objectFit: "contain",
                     }}
                     // className="carousel_img"
-                    src={detail?.productImgs?.[0]}
+                    src={detail?.productImgs?.[0].url}
                     alt="First slide"
                   />
                 </Carousel.Item>
@@ -79,7 +79,7 @@ const Product = () => {
                       objectFit: "contain",
                     }}
                     // className="carousel_img"
-                    src={detail?.productImgs?.[1]}
+                    src={detail?.productImgs?.[1].url}
                     alt="Second slide"
                   />
                 </Carousel.Item>
@@ -97,7 +97,7 @@ const Product = () => {
                       objectFit: "contain",
                     }}
                     // className="carousel_img"
-                    src={detail?.productImgs?.[2]}
+                    src={detail?.productImgs?.[2].url}
                     alt="Third slide"
                   />
                 </Carousel.Item>
@@ -124,7 +124,7 @@ const Product = () => {
               <div>
                 <h5>Price</h5>
                 <p>
-                  <strong>{detail.price}</strong>
+                  <strong>${detail.price}</strong>
                 </p>
               </div>
               <div>
@@ -174,28 +174,28 @@ const Product = () => {
           {productsByCategory?.map((producItem) => (
             <Col key={producItem.id}>
               <Card style={{ margin: "1rem" }}>
-                <Carousel interval="15000">
+                <Carousel variant="dark" interval="15000">
                   <Carousel.Item className="cards">
                     <img
                       className="d-block w-100"
-                      src={producItem.productImgs[0]}
-                      style={{ height: 200, width: 200, objectFit: "cover" }}
+                      src={producItem.productImgs[0].url}
+                      style={{ height: 300, objectFit: "contain" }}
                       alt="First slide"
                     />
                   </Carousel.Item>
                   <Carousel.Item className="cards">
                     <img
                       className="d-block w-100"
-                      src={producItem.productImgs[1]}
-                      style={{ height: 200, objectFit: "cover" }}
+                      src={producItem.productImgs[1].url}
+                      style={{ height: 300, objectFit: "contain" }}
                       alt="Second slide"
                     />
                   </Carousel.Item>
                   <Carousel.Item className="cards w-100">
                     <img
                       className="d-block w-100"
-                      src={producItem.productImgs[2]}
-                      style={{ height: 200, objectFit: "cover" }}
+                      src={producItem.productImgs[2].url}
+                      style={{ height: 300, objectFit: "contain" }}
                       alt="Third slide"
                     />
                   </Carousel.Item>

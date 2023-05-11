@@ -1,7 +1,7 @@
 body{
     background-color: rgba(213, 217, 218, 0.1);
 }
-.nav-link {
+.nav-products .nav-link {
     color: white;  
 }
 .nav-products {
@@ -15,11 +15,11 @@ body{
   color: var(--bs-warning) !important;
 }
 .cards img{
-    padding: 5px;
+    padding: 10px;
 }
 .container__cards {
     margin: 15px 25px;
-    height: 400px;
+    height: 450px;
 }
 .card__body {
     display: flex;

@@ -141,12 +141,12 @@ const Products= () => {
           <Col key={producItem.id}>
             <Card className="container__cards">
               {/* inicio de carousel */}
-              <Carousel interval='15000'>
+              <Carousel variant="dark" interval='15000'>
                   <Carousel.Item className="cards">
                     <img
                       className="d-block w-100"
-                      src={producItem.productImgs[0]}
-                      style={{height:200, width:200, objectFit:'cover'}}
+                      src={producItem.productImgs[0].url}
+                      style={{height:300, objectFit:'contain', }}
                       alt="First slide"
                     />
                     
@@ -154,8 +154,8 @@ const Products= () => {
                   <Carousel.Item className="cards">
                     <img
                       className="d-block w-100"
-                      src={producItem.productImgs[1]}
-                      style={{height:200, objectFit:'cover'}}
+                      src={producItem.productImgs[1].url}
+                      style={{height:300, objectFit:'contain'}}
                       alt="Second slide"
                     />
 
@@ -164,8 +164,8 @@ const Products= () => {
                   <Carousel.Item className="cards w-100" >
                     <img
                       className="d-block w-100"
-                      src={producItem.productImgs[2]}
-                      style={{height:200, objectFit:'cover'}}
+                      src={producItem.productImgs[2].url}
+                      style={{height:300, objectFit:'contain'}}
                       alt="Third slide"
                     />
 

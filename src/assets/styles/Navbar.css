@@ -1,7 +1,7 @@
 #header .navbar-brand {
   font-size: 26px;
   font-weight: 600;
-  color: white;
+  color: var(--bs-warning);
 }
 
 #header .navbar-brand:hover, #header .nav-link:hover {
