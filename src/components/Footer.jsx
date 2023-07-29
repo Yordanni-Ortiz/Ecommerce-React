@@ -7,7 +7,6 @@ import Nav from "react-bootstrap/Nav";
 import linkedin from "../../public/linkedin.png";
 import whatsapp from "../../public/whatsapp.png";
 import gmail from "../../public/gmail.png";
-import instagram from "../../public/instagram.png";
 import "/src/assets/styles/Footer.css";
 
 function Footer() {
@@ -24,7 +23,7 @@ function Footer() {
         <Container id="footer" className="flex-column" fluid>
           <Row xs={1} md={2} lg={4}>
             <Col>
-              <Nav className="flex-column">
+              <Nav className="flex-column list">
                 <Nav.Link>Get to Know Us</Nav.Link>
                 <Nav.Link>Careers</Nav.Link>
                 <Nav.Link>Blog</Nav.Link>
@@ -33,7 +32,7 @@ function Footer() {
               </Nav>
             </Col>
             <Col>
-              <Nav className="flex-column">
+              <Nav className="flex-column list">
                 <Nav.Link>Let Us Help You</Nav.Link>
                 <Nav.Link>Your Account</Nav.Link>
                 <Nav.Link>Your Orders</Nav.Link>
@@ -42,7 +41,7 @@ function Footer() {
               </Nav>
             </Col>
             <Col>
-              <Nav className="flex-column">
+              <Nav className="flex-column list">
                 <Nav.Link>Payment Products</Nav.Link>
                 <Nav.Link>Business Card</Nav.Link>
                 <Nav.Link>Shop with Points</Nav.Link>
@@ -54,20 +53,15 @@ function Footer() {
               <Nav className="flex-column">
                 <Nav.Link>Follow Us</Nav.Link>
                 <div className="footer-icons">
-                  <div className="footer-icons b1">
+                  <div>
                     <a href={linkedIn} target="blank">
                       <img src={linkedin} alt="" />
                     </a>
-                    <a href={wts} target="blank">
-                      <img src={whatsapp} alt="" />
-                    </a>
-                  </div>
-                  <div className="footer-icons b2">
                     <a href={mail} target="blank">
                       <img src={gmail} alt="" />
                     </a>
-                    <a href={instaGram} target="blank">
-                      <img src={instagram} alt="" />
+                    <a href={wts} target="blank">
+                      <img src={whatsapp} alt="" />
                     </a>
                   </div>
                 </div>

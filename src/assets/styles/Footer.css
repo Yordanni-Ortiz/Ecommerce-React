@@ -85,6 +85,9 @@
   background-color: white;
 }
 .footer-icons img {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
   width: 40px;
   padding: 5px;
   transition: all 0.3s ease;
@@ -104,5 +107,8 @@ div.footer-icons.b2 {
   .nav-products {
     gap: 0px;
     font-size: 15px;
+  }
+  .list {
+    margin-bottom: 40px;
   }
 }
