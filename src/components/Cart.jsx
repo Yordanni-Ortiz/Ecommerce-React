@@ -72,16 +72,16 @@ function Cart({ sendLaunch, launch }) {
   };
 
   const prepareProducts = () => {
-    /*if(getProducts)
+    if(getProducts)
 	{
             setProducts(cartProducts.map(product => {
-                const productImgs = getProducts?.find(getProduct => getProduct.id === product.id).productImgs;
+                const productImgs = getProducts?.find(getProduct => getProduct.id === product.id).productImgs.url;
 	        return {
                     ...product,
 	            productImgs
 	        };
 	    }));
-	}*/ setProducts(cartProducts);
+	} setProducts(cartProducts);
   };
 
   const handleUpdateQuantity = (operation, product) => {
@@ -115,12 +115,12 @@ function Cart({ sendLaunch, launch }) {
                     }
                   >
                     <img
-                      src={product.product?.productImgs[0]}
+                      src={product.product?.productImgs[0].url}
                       alt={`This is a ${product.product.title} image`}
                     />
                     <figcaption>{product.product.title}</figcaption>
                     <span>Price</span>
-                    <span>{`$${product.product.price}`}</span>
+                    <span>{`${product.product.price}`}</span>
                   </figure>
                   <span
                     id="substract-product"
