@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "/src/assets/styles/Router.css";
 import Loader from "./components/Loader";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
