@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+// Dentro de Cart.jsx
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import ListGroup from "react-bootstrap/ListGroup";
-import "/src/assets/styles/Cart.css";
 import { Trash } from "react-bootstrap-icons";
 import axios from "axios";
 import getConfig from "/src/utils/getConfig";
-import { useSelector, useDispatch } from "react-redux";
 import {
   getCartProductsThunk,
   removeCartProductThunk,
@@ -16,6 +16,7 @@ import {
 import { addUserPurchaseThunk } from "/src/store/slices/userPurchases.slice";
 import { setIsLoading } from "/src/store/slices/isLoading.slice";
 import { setCartProducts } from "/src/store/slices/cartProducts.slice";
+import "/src/assets/styles/Cart.css";
 
 function Cart({ sendLaunch, launch }) {
   const [total, setTotal] = useState(0);
@@ -26,8 +27,11 @@ function Cart({ sendLaunch, launch }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getCartProductsThunk());
-  }, []);
+    const token = localStorage.getItem("token");
+    if (token) {
+      dispatch(getCartProductsThunk());
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     prepareProducts();
@@ -38,19 +42,39 @@ function Cart({ sendLaunch, launch }) {
         0
       )
     );
-  }, [cartProducts]);
+  }, [cartProducts, getProducts]);
 
-  const dropProduct = (id) => {
-    dispatch(setIsLoading(true));
-    axios
-      .delete(
-        "https://ecommerce-api-94zo.onrender.com/api/v1/cart/" + id,
-        getConfig()
-      )
-      .then((res) => dispatch(getCartProductsThunk()))
-      .catch((err) => console.log(err.response))
-      .finally(() => dispatch(setIsLoading(false)));
+  const cleanCart = async () => {
+    try {
+      dispatch(setIsLoading(true));
+  
+      const ids = cartProducts.map((product) => product.id);
+      console.log("ids:", ids)
+      // Recorre los IDs y elimina cada producto uno por uno
+      ids.forEach(async (id) => {
+        console.log(`Eliminando producto con ID: ${id}`);
+        await dispatch(removeCartProductThunk(id));
+    });
+      // Después de eliminar todos los productos, actualizar el estado del carrito
+      dispatch(setCartProducts([]));
+    } catch (error) {
+      console.error('Error cleaning cart:', error);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
   };
+  
+  const removeProduct = async (id) => {
+    console.log('Removiendo ID del carrito cart:', id);
+    try {
+      // Despacha el Thunk correctamente usando dispatch
+      await dispatch(removeCartProductThunk(id));
+    } catch (error) {
+      console.error('Error removing product Cart:', error);
+      throw error;
+    }
+  };
+  
 
   const handleClose = () => sendLaunch(false);
 
@@ -65,32 +89,35 @@ function Cart({ sendLaunch, launch }) {
     handleClose();
   };
 
-  const cleanCart = () => {
-    const ids = cartProducts.map((product) => product.id);
-    ids.forEach((id) => dropProduct(id));
-    dispatch(setCartProducts([]));
-  };
-
   const prepareProducts = () => {
-    if(getProducts)
-	{
-            setProducts(cartProducts.map(product => {
-                const productImgs = getProducts?.find(getProduct => getProduct.id === product.id).productImgs.url;
-	        return {
-                    ...product,
-	            productImgs
-	        };
-	    }));
-	} setProducts(cartProducts);
+    if (getProducts) {
+      const preparedProducts = cartProducts.map((cartProduct) => {
+        const foundProduct = getProducts.find(
+          (product) => product.id === cartProduct?.productId
+        );
+        if (foundProduct) {
+          return {
+            ...cartProduct,
+            product: foundProduct,
+          };
+        } else {
+          return cartProduct;
+        }
+      });
+      setProducts(preparedProducts);
+      console.log("Prepared Products:", preparedProducts);
+    } else {
+      setProducts(cartProducts);
+    }
   };
 
   const handleUpdateQuantity = (operation, product) => {
-    let newQuantity = product.quantity;
+    let newQuantity = product?.quantity;
 
-    if (operation == "subs") {
-      newQuantity--;
-    } else if (operation == "add") {
-      newQuantity++;
+    if (operation === "subs") {
+      newQuantity = Math.max(1, newQuantity - 1); // Evita cantidades negativas
+    } else if (operation === "add") {
+      newQuantity++; // Incrementa la cantidad
     }
 
     dispatch(updateCartProductThunk(product.id, newQuantity));
@@ -103,47 +130,45 @@ function Cart({ sendLaunch, launch }) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <ListGroup variant="flush">
-          {products.map((product, index) => {
-            return (
-              <ListGroup.Item id="card-item" key={index}>
-                <span id="quantity">{product.quantity}</span>
-                <div id="item-data">
-                  <figure
-                    id="card-img"
-                    onClick={() =>
-                      handleNavigate(`/product/${product.product.id}`)
-                    }
-                  >
-                    <img
-                      src={product.product?.productImgs[0].url}
-                      alt={`This is a ${product.product.title} image`}
-                    />
-                    <figcaption>{product.product.title}</figcaption>
-                    <span>Price</span>
-                    <span>{`${product.product.price}`}</span>
-                  </figure>
-                  <span
-                    id="substract-product"
-                    onClick={() => handleUpdateQuantity("subs", product)}
-                  >
-                    -
-                  </span>
-                  <span
-                    id="add-product"
-                    onClick={() => handleUpdateQuantity("add", product)}
-                  >
-                    +
-                  </span>
-                  <span
-                    id="card-trash"
-                    onClick={() => dispatch(removeCartProductThunk(product.id))}
-                  >
-                    <Trash id="trash" />
-                  </span>
-                </div>
-              </ListGroup.Item>
-            );
-          })}
+          {products.map((product, index) => (
+            <ListGroup.Item id="card-item" key={index}>
+              <span id="quantity">{product.quantity}</span>
+              <div id="item-data">
+                <figure
+                  id="card-img"
+                  onClick={() =>
+                    handleNavigate(`/product/${product.product.id}`)
+                  }
+                >
+                  <img
+                    src={product.product?.productImgs?.[0].url}
+                    alt={`This is a ${product.product?.title} image`}
+                  />
+                  <figcaption>{product.product.title}</figcaption>
+                  <span>Price</span>
+                  <span>{`${product.product.price}`}</span>
+                </figure>
+                <span
+                  id="substract-product"
+                  onClick={() => handleUpdateQuantity("subs", product)}
+                >
+                  -
+                </span>
+                <span
+                  id="add-product"
+                  onClick={() => handleUpdateQuantity("add", product)}
+                >
+                  +
+                </span>
+                <span
+                  id="card-trash"
+                  onClick={() =>  removeProduct(product.id)}
+                >
+                  <Trash id="trash" />
+                </span>
+              </div>
+            </ListGroup.Item>
+          ))}
         </ListGroup>
         <div id="cart-total">
           <span>Total</span>

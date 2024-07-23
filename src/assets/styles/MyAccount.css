@@ -1,0 +1,125 @@
+/* MyAccount.css */
+.my-account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0 50px 0;
+  background-color: #F8F8FB;
+}
+.account-title-content {
+  padding: 0 40px 0 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.account-title {
+  display: flex;
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo del contenido para mejor legibilidad */
+}
+.content{
+  padding: 0 40px 0 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.account-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo del contenido para mejor legibilidad */
+  padding: 20px;
+  background-color: #ffffff; /* Ejemplo de fondo */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+.account-subtitle {
+  margin-bottom: 10px; /* Espacio inferior entre subtítulo y contenido */
+}
+.profile-section {
+  margin: 20px; /* Espacio entre secciones */
+}
+.user-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Crea tres columnas de igual tamaño */
+  gap: 20px 80px; /* Espacio entre las columnas */
+  text-align: center; /* Centra el texto */
+  width: 60%;
+}
+strong {  
+  font-weight: 400;
+  color: #666;
+}
+.profile-image-container {
+  width: 200px; /* Ancho de la imagen de perfil */
+  height: 200px; /* Altura de la imagen de perfil */
+  overflow: hidden; /* Para recortar la imagen si es más grande */
+  border-radius: 50%; /* Bordes redondeados para imagen circular */
+  margin-bottom: 10px; /* Espacio entre la imagen y el input */
+}
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta la imagen a la caja */
+}
+.default-profile-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.default-profile-image p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+/* MyAccount.css */
+/* Estilo para el botón de carga de archivos con FontAwesome */
+.file-upload-label {
+  position: absolute;
+  margin-top: -45px;
+  display: inline-block;
+  padding: 8px ;
+  width: 80px;
+  background-color: orange;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.file-upload-label input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.upload-icon {
+  margin-right: 10px; /* Espacio entre el icono y el texto (opcional) */
+}
+@media (max-width: 700px){
+  .account-content {
+    display: inline-block;
+  }
+  .file-upload-label {
+    margin-top: 11.5rem;
+  }
+  .user-info {
+    grid-template-columns: repeat(2, 1fr); /* Crea tres columnas de igual tamaño */
+    gap: 10px 30px; /* Espacio entre las columnas */
+    width: 100%;
+  } 
+  .profile-section {
+    display: flex;
+    justify-content: center;
+  }
+}

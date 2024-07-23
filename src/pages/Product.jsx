@@ -8,7 +8,10 @@ import Carousel from "react-bootstrap/Carousel";
 import { addCartProductThunk } from "../store/slices/cartProducts.slice";
 import Container from "react-bootstrap/Container";
 import '../assets/styles/Product.css'
-import { Cart } from "react-bootstrap-icons";
+import { Cart, CheckLg } from "react-bootstrap-icons";
+import ModalAddProducts from "../components/ModalAddProduct"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Product = () => {
   const { id } = useParams();
@@ -17,18 +20,29 @@ const Product = () => {
   const [count, setCount] = useState(1);
   const products = useSelector((state) => state.getProducts);
   const [productsByCategory, setProductsByCategory] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
     dispatch(setIsLoading(true));
     axios
-      .get(`https://ecommerce-api-94zo.onrender.com/api/v1/products/${id}/`)
+      .get(`http://localhost:8080/api/v1/products/${id}/`)
       .then((resp) => {
+        console.log("Productos en general", resp.data)
         setDetail(resp?.data);
         filterClass(resp?.data?.categoryId);
       })
       .catch((error) => console.error(error))
       .finally(() => dispatch(setIsLoading(false)));
   }, [id]);
+
+  useEffect(() => {
+    // Aquí puedes verificar si el usuario está autenticado, por ejemplo, comprobando un token en el localStorage
+    const token = localStorage.getItem('token'); // Supongamos que guardas el token en localStorage
+    setIsAuthenticated(!!token); // Actualiza el estado de autenticación
+  }, []);
 
   const filterClass = (category) => {
     const productsFiltered = products.filter((p) => p.categoryId == category);
@@ -37,7 +51,13 @@ const Product = () => {
 
   const handleAddCart = (product) => {
     dispatch(addCartProductThunk(product, count));
+    successful()
   };
+
+  const successful = () => toast("✔ Product add to cart successfully.", {
+    autoClose: 2000, 
+  });
+
 
   return (
     <Container className="my-5">
@@ -159,7 +179,9 @@ const Product = () => {
               </div>
             </div>
             <div>
-              <Button variant="warning" onClick={() => handleAddCart(detail)}>
+              <Button 
+                variant="warning" 
+                onClick={() => isAuthenticated ? handleAddCart(detail) : handleShow()}>
                 add to cart
               </Button>
             </div>
@@ -213,7 +235,7 @@ const Product = () => {
                     </Button>
                     <Button
                       variant="warning"
-                      onClick={() => dispatch(addProduct(producItem))}
+                      onClick={() => handleAddCart(detail)}
                     >
                       <Cart />
                     </Button>
@@ -224,6 +246,14 @@ const Product = () => {
           ))}
         </Row>
       </div>
+      <ModalAddProducts
+        show={show} 
+        handleClose={handleClose} 
+      />
+      <ToastContainer
+        position="top-center" 
+        pauseOnHover={true}
+      />
     </Container>
   );
 };

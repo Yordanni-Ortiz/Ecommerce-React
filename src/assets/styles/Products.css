@@ -17,6 +17,17 @@ body{
 .cards img{
     padding: 10px;
 }
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mt-3{
+    width: 500px;
+}
+.horizontal-slider {
+    width: 80% !important;
+}
 .container__cards {
     margin: 15px 25px;
     height: 450px;
@@ -39,3 +50,32 @@ body{
 .bu button{
     width: 83.91px;
 }
+.card {
+   --bs-card-title-spacer-y: none;
+}
+.h5 {
+    font-size: 1.18rem;
+}
+.search-products:focus, 
+.min-price:focus, 
+.max-price:focus {
+    box-shadow: none;
+    border-color: orange;
+}
+.container-alert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+  }
+  .image-alert {
+    width: 50% !important;
+    margin-bottom: 20px; /* Espacio entre la imagen y el texto */
+  }
+  .text-alert {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }

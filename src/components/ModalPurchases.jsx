@@ -3,34 +3,37 @@ import Modal from "react-bootstrap/Modal";
 import "/src/assets/styles/ModalPurchases.css";
 
 const ModalPurchases = ({ show, handleClose, data }) => {
+  if (!data || !data.product) {
+    return; // o algún otro manejo adecuado para este caso
+  }
+  console.log("data", data)
   return (
     <div>
       <Modal id="modal-purchase" show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Electronic Shop</Modal.Title>
           <Modal.Body>
-            <p>{`Electronic shop C.A J‑4681557‑5 ${data.productsInCart?.createdAt.slice(
-              0,
-              10
-            )}`}</p>
+          {data.createdAt && (
+            <p>{` ${data.createdAt.slice(0, 10)} ${data.createdAt.slice(11, 19)}`}</p> 
+          )}
           </Modal.Body>
         </Modal.Header>
         <Modal.Body>
           <div>
             <h5>Product</h5>
-            <p>{data.title}</p>
+            <p>{data.product.title}</p>
           </div>
           <div>
             <h5>Price</h5>
-            <p>{data.price}</p>
+            <p>{data.product.price}</p>
           </div>
           <div>
             <h5>Amount</h5>
-            <p>{data.productsInCart?.quantity}</p>
+            <p>{data.quantity}</p>
           </div>
           <div>
             <h5>Total to pay</h5>
-            <p>{data.price * data.productsInCart?.quantity}</p>
+            <p>{data.product.price * data.quantity}</p>
           </div>
         </Modal.Body>
         <Modal.Footer>

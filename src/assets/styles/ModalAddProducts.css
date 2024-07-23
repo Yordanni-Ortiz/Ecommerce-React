@@ -1,0 +1,24 @@
+.modal-footer{
+    justify-content: center;
+}
+.login-button {
+    width: 40%;
+}
+.link-to-login {
+    color: #ffffff;
+    text-decoration: none;
+}
+.link-to-login:hover {
+    color: #ffffff;
+}
+.modal-body .message-modal-add-product p {
+    font-size: 20px;
+    text-align: center;
+}
+.close-icon {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }

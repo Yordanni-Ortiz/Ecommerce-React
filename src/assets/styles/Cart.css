@@ -2,13 +2,18 @@
   height: 180px;
 }
 #card-item:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #eaeaea;
+}
+.card-login {
+  max-width: 500px; 
+  margin: 3rem auto; 
+  padding: 2rem;
 }
 #quantity,
 #substract-product,
 #add-product {
   display: inline-block;
-  background-color: var(--bs-blue);
+  background-color: var(--bs-orange);
   color: white;
   font-weight: 600;
   text-align: center;
@@ -16,9 +21,14 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 1px solid var(--bs-blue);
   position: relative;
+  user-select: none;
   z-index: 9;
+}
+#add-product {
+  display: inline-flex; /* Cambiado de inline-block a inline-flex */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center;
 }
 #quantity {
   top: 0;
@@ -42,14 +52,13 @@
   cursor: pointer;
 }
 #add-product {
-  top: -105px;
+  top: -103px;
   left: 150px;
   cursor: pointer;
 }
 #substract-product:hover,
 #add-product:hover {
-  background-color: transparent;
-  color: var(--bs-blue);
+  background-color: #d57b26;
 }
 #card-img figcaption {
   width: 300px;

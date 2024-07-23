@@ -3,19 +3,15 @@
   font-weight: 600;
   color: var(--bs-warning);
 }
-
 #header .navbar-brand:hover, #header .nav-link:hover {
   color: var(--bs-warning);
 }
-
 #header .nav-link {
   color: white;
 }
-
 .custom-navbar {
   background-color: #131921;
 }
-
 .offcanvas-header {
   background-color: #131921;
   color: white;
@@ -26,9 +22,92 @@
 }
 .btn-close {
   background-color: #ff7700;
-
 }
 .navbar-toggler {
-  background-color: hsl(28, 100%, 50%);
+  background-color: #ff7700;
+}
+.user {
+  color: #ffffff;
+  margin: 0;
+  padding-right: 20px;
+}
 
+.user-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.user-name {
+  cursor: pointer;
+  margin-right: 30px;
+  color: #ffffff;
+  border-radius: 4px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  
+}
+.initial-name {
+  transform: scaley(0.8);
+}
+.user-name-name {
+  font-size: 17px;
+  transform: scaley(0.9);
+}
+
+.dropdown-menu {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 120%;
+  left: -5px;
+  min-width: 160px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 4;
+  list-style-type: none;
+  margin: 0;
+  display: none; /* Por defecto oculto */
+}
+
+.dropdown-menu.show {
+  display: block; /* Mostrar cuando se activa */
+}
+
+.dropdown-item {
+  padding: .35rem 1.5rem;
+  cursor: pointer;
+  color: #232F3E;
+}
+.dropdown-item:hover {
+  color: #232F3E;
+}
+.nav-dropdown-options {
+  color: #232F3E !important;
+}
+hr {
+  margin: .5rem ; /* Eliminar margen */
+  padding: 0; /* Eliminar relleno */
+}
+.log-out {
+  margin-bottom: .5rem !important
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1a5;
+}
+
+.user-photo {
+  width: 50px; /* Ajusta el tamaño según tu necesidad */
+  height: 50px; /* Ajusta el tamaño según tu necesidad */
+  border-radius: 50%;
+  background-color: #ff8000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 28px;
 }

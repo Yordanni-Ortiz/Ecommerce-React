@@ -13,7 +13,7 @@ export const getProductsSlice = createSlice({
 export const getProductsThunk = () => dispatch => {
     dispatch(setIsLoading(true));
     apiCalls({
-        url: "https://ecommerce-api-94zo.onrender.com/api/v1/products",
+        url: "http://localhost:8080/api/v1/products",
 	resolve: res => dispatch(setProducts(res)),
 	reject: console.log,
 	$finally: () => dispatch(setIsLoading(false))

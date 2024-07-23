@@ -1,0 +1,39 @@
+.card-register {
+    max-width: 450px; 
+    margin: 3rem auto; 
+    padding: 2rem;
+}
+.name-fields {
+    display: flex;
+    justify-content: space-between;
+}
+  
+.first-name, .last-name {
+    max-width: 48%;
+}
+.first-name:focus, 
+.last-name:focus, 
+.phone:focus, 
+.email:focus, 
+.password:focus {
+    box-shadow: none;
+    border-color: orange;
+}
+.phone input:focus {
+    box-shadow: none; 
+    border-color: orange;
+  }
+
+
+
+  .password-wrapper {
+    position: relative;
+  }
+  .show-password-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+  }
