@@ -90,20 +90,6 @@ const Register = () => {
         <Form onSubmit={handleSubmit}>
           <h1>Register</h1>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>User</Form.Label>
-            <Form.Control
-              className='email'
-              value={formData.email}
-              onChange={handleChangeData}
-              type="text"
-              placeholder="My user"
-              autoComplete="user-name"
-              name="user"
-              required
-            />
-          </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
             <div className="name-fields">
