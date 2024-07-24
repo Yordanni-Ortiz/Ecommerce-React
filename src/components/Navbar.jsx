@@ -13,7 +13,7 @@ import "../assets/styles/Navbar.css";
 function $Navbar() {
   const [launch, setLaunch] = useState(false);
   const isLoggedIn = useSelector((state) => state.isLogged.isLoggedIn);
-  const userName = useSelector((state) => state.isLogged.userName);
+  const userFirstName = useSelector((state) => state.isLogged.userFirstName);
   const userLastName = useSelector((state) => state.isLogged.userLastName);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -108,10 +108,10 @@ function $Navbar() {
                 <div className="user-name" onClick={toggleDropdown}>
                   <div className="user-photo">
                     {/* Aquí se puede agregar la lógica para mostrar la foto si existe */}
-                    <div className="initial-name">{getFirstNameInitials(userName)}</div>
+                    <div className="initial-name">{getFirstNameInitials(userFirstName)}</div>
                     <div className="initial-name">{getLastNameInitials(userLastName)}</div>
                   </div>
-                  <div className="user-name-name">{userName.toUpperCase()}</div>
+                  <div className="user-name-name">{userFirstName.toUpperCase()}</div>
                 </div>
                 <ul className={`dropdown-menu ${isOpen ? 'show' : ''}`}>
                   <li className="dropdown-item" onClick={handleDropdownItemClick}>

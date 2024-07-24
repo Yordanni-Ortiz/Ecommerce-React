@@ -5,8 +5,9 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import '../assets/styles/MyAccount.css';
 
 function MyAccount() {
-  const userName = useSelector((state) => state.isLogged.userName.toUpperCase());
-  const userLastName = useSelector((state) => state.isLogged.userLastName.toUpperCase());
+  const userName = useSelector((state) => state.isLogged.userName);
+  const userFirstName = useSelector((state) => state.isLogged.userFirstName);
+  const userLastName = useSelector((state) => state.isLogged.userLastName);
   const userEmail = useSelector((state) => state.isLogged.userEmail);
   const userPhone = useSelector((state) => state.isLogged.userPhone);
 
@@ -56,9 +57,13 @@ function MyAccount() {
             </label>
           </div>
           <div className='user-info'>
+          <div>
+              <strong>USER</strong> 
+              <p>{userName}</p>
+            </div>
             <div>
               <strong>NAME</strong> 
-              <p>{userName} {userLastName}</p>
+              <p>{userFirstName} {userLastName}</p>
             </div>
             <div>
               <strong>EMAIL</strong> 

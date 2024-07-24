@@ -1,7 +1,7 @@
 .card-register {
     max-width: 450px; 
     margin: 3rem auto; 
-    padding: 2rem;
+    padding: 1.5rem 2rem;
 }
 .name-fields {
     display: flex;
@@ -15,6 +15,7 @@
 .last-name:focus, 
 .phone:focus, 
 .email:focus, 
+.user-name:focus, 
 .password:focus {
     box-shadow: none;
     border-color: orange;
@@ -23,7 +24,6 @@
     box-shadow: none; 
     border-color: orange;
   }
-
 
 
   .password-wrapper {

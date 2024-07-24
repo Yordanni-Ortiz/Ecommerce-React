@@ -21,6 +21,7 @@ const Register = () => {
   };
 
   const [formData, setFormData] = useState({
+    userName: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -57,7 +58,7 @@ const Register = () => {
       await axios.post("http://localhost:8080/api/v1/users", formData);
       successful();
       resetForm();
-     
+     console.log("formData", formData)
     } catch (error) {
       console.error('Error registering user:', error.response.data.message);
       if (error.response && error.response.data.message === 'llave duplicada viola restricción de unicidad «users_email_key»') {
@@ -70,6 +71,7 @@ const Register = () => {
 
   const resetForm = () => {
     setFormData({
+      userName: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -89,6 +91,20 @@ const Register = () => {
       <Card className='card-register'>
         <Form onSubmit={handleSubmit}>
           <h1>Register</h1>
+
+          <Form.Group className="mb-3" controlId="formBasicUserName">
+            <Form.Label>User</Form.Label>
+            <Form.Control
+              type="text"
+              className='user-name'
+              value={formData.userName}
+              onChange={handleChangeData}
+              placeholder="My user"
+              autoComplete="user-name"
+              name="userName"
+              required
+            />
+          </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>

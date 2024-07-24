@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
-  const [email, setEmail] = useState("test@gmail.com");
+  const [email, setEmail] = useState("yordannimod@gmail.com");
   const [password, setPassword] = useState("test1234");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
@@ -39,13 +39,15 @@ const Login = () => {
       .then((resp) => {
         localStorage.setItem("token", resp.data.token);
         dispatch(setIsLogged({ 
-          userName: resp.data.user.firstName,
+          userName: resp.data.user.userName,
+          userFirstName: resp.data.user.firstName,
           userLastName: resp.data.user.lastName,
           userEmail: resp.data.user.email,
           userPhone: resp.data.user.phone
         }));
         
-        localStorage.setItem("userName", resp.data.user.firstName);
+        localStorage.setItem("userName", resp.data.user.userName);
+        localStorage.setItem("userFirstName", resp.data.user.firstName);
         localStorage.setItem("userLastName", resp.data.user.lastName);
         localStorage.setItem("userEmail", resp.data.user.email);
         localStorage.setItem("userPhone", resp.data.user.phone);
