@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
-  const [email, setEmail] = useState("yordannimod@gmail.com");
+  const [userName, setUserName] = useState("test");
   const [password, setPassword] = useState("test1234");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
@@ -30,7 +30,7 @@ const Login = () => {
     dispatch(setIsLoading(true));
 
     const data = {
-      email,
+      userName,
       password,
     };
 
@@ -57,8 +57,8 @@ const Login = () => {
       .catch((error) => {
         if (error.response && error.response.data.message === "Credentials invalid") {
           setErrors({
-            email: "Invalid email or password.",
-            password: "Invalid email or password."
+            userName: "Invalid user or password.",
+            password: "Invalid user or password."
           });
         } else {
           loginError();
@@ -70,7 +70,7 @@ const Login = () => {
   };
 
   const resetForm = () => {
-    setEmail('');
+    setUserName('');
     setPassword('');
   };
 
@@ -88,27 +88,27 @@ const Login = () => {
       <Form onSubmit={handleSubmit}>
         <h1>Login</h1>
         {errors.general && <p className="error-message">{errors.general}</p>}
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+        <Form.Group className="mb-3" controlId="formBasicUserEmail">
+          <Form.Label>User</Form.Label>
           <div className="password-wrapper">
           <Form.Control
-            className={`email ${errors.email ? "error-border" : ""}`}
-            type="email"
-            name="email"
-            placeholder="Enter email"
-            autoComplete="email"
-            value={email}
+            className={`email ${errors.userName ? "error-border" : ""}`}
+            type="text"
+            name="userName"
+            placeholder="My user"
+            autoComplete="user"
+            value={userName}
             onChange={(e) => {
-              setEmail(e.target.value);
-              setErrors((prevErrors) => ({ ...prevErrors, email: null }));
+              setUserName(e.target.value);
+              setErrors((prevErrors) => ({ ...prevErrors, userName: null }));
             }}
           />
-          {errors.email && (
-              <span className="error-icon ">
+          {errors.userName && (
+              <span className="error-icon-login ">
                   <FontAwesomeIcon icon={faXmark} />
               </span>
             )}</div>
-          {errors.email && <p className="error-message">{errors.email}</p>}
+          {errors.userName && <p className="error-message">{errors.userName}</p>}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
