@@ -13,6 +13,7 @@ import "../assets/styles/Navbar.css";
 function $Navbar() {
   const [launch, setLaunch] = useState(false);
   const isLoggedIn = useSelector((state) => state.isLogged.isLoggedIn);
+  const userName = useSelector((state) =>  state.isLogged.userName)
   const userFirstName = useSelector((state) => state.isLogged.userFirstName);
   const userLastName = useSelector((state) => state.isLogged.userLastName);
   const navigate = useNavigate();
@@ -111,7 +112,7 @@ function $Navbar() {
                     <div className="initial-name">{getFirstNameInitials(userFirstName)}</div>
                     <div className="initial-name">{getLastNameInitials(userLastName)}</div>
                   </div>
-                  <div className="user-name-name">{userFirstName.toUpperCase()}</div>
+                  <div className="user-name-name">{userName.toUpperCase()} <span className="centered-character">ˇ</span></div>
                 </div>
                 <ul className={`dropdown-menu ${isOpen ? 'show' : ''}`}>
                   <li className="dropdown-item" onClick={handleDropdownItemClick}>
@@ -119,7 +120,7 @@ function $Navbar() {
                       My Account
                     </Nav.Link>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item" onClick={handleDropdownItemClick}>
                     <Nav.Link className="nav-dropdown-options" to="/change-password" as={Link}>
                       My Password
                     </Nav.Link>
