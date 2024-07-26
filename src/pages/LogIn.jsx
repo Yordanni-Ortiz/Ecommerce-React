@@ -8,13 +8,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsLogged } from "../store/slices/isLogged.slice";
 import { setIsLoading } from "../store/slices/isLoading.slice";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock, faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock, faEye, faEyeSlash, faXmark, } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
-  const [userName, setUserName] = useState("test");
+  const [userName, setUserName] = useState("yord");
   const [password, setPassword] = useState("test1234");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
@@ -38,27 +38,36 @@ const Login = () => {
       .post("http://localhost:8080/api/v1/users/login", data)
       .then((resp) => {
         localStorage.setItem("token", resp.data.token);
-        dispatch(setIsLogged({ 
-          userName: resp.data.user.userName,
-          userFirstName: resp.data.user.firstName,
-          userLastName: resp.data.user.lastName,
-          userEmail: resp.data.user.email,
-          userPhone: resp.data.user.phone
-        }));
-        
+        console.log("data:", resp.data);
+        dispatch(
+          setIsLogged({
+            userName: resp.data.user.userName,
+            userFirstName: resp.data.user.firstName,
+            userLastName: resp.data.user.lastName,
+            userEmail: resp.data.user.email,
+            userPhone: resp.data.user.phone,
+            userId: resp.data.user.id,
+          })
+        );
+
         localStorage.setItem("userName", resp.data.user.userName);
         localStorage.setItem("userFirstName", resp.data.user.firstName);
         localStorage.setItem("userLastName", resp.data.user.lastName);
         localStorage.setItem("userEmail", resp.data.user.email);
         localStorage.setItem("userPhone", resp.data.user.phone);
+        localStorage.setItem("userId", resp.data.user.id);
+        //console.log("LocalStorage userId:", localStorage.getItem("userId"));
         loginSuccessful();
         resetForm();
       })
       .catch((error) => {
-        if (error.response && error.response.data.message === "Credentials invalid") {
+        if (
+          error.response &&
+          error.response.data.message === "Credentials invalid"
+        ) {
           setErrors({
             userName: "Invalid user or password.",
-            password: "Invalid user or password."
+            password: "Invalid user or password.",
           });
         } else {
           loginError();
@@ -70,16 +79,17 @@ const Login = () => {
   };
 
   const resetForm = () => {
-    setUserName('');
-    setPassword('');
+    setUserName("");
+    setPassword("");
   };
 
-  const loginSuccessful = () => toast("✔ Login successful! Redirecting...", {
-    onClose: () => {
-      navigate('/') 
-      window.location.reload(); 
-    } 
-  });
+  const loginSuccessful = () =>
+    toast("✔ Login successful! Redirecting...", {
+      onClose: () => {
+        navigate("/");
+        window.location.reload();
+      },
+    });
 
   const loginError = () => toast("✘ Login failed. Please try again.");
 
@@ -91,24 +101,27 @@ const Login = () => {
         <Form.Group className="mb-3" controlId="formBasicUserEmail">
           <Form.Label>User</Form.Label>
           <div className="password-wrapper">
-          <Form.Control
-            className={`email ${errors.userName ? "error-border" : ""}`}
-            type="text"
-            name="userName"
-            placeholder="My user"
-            autoComplete="user"
-            value={userName}
-            onChange={(e) => {
-              setUserName(e.target.value);
-              setErrors((prevErrors) => ({ ...prevErrors, userName: null }));
-            }}
-          />
-          {errors.userName && (
+            <Form.Control
+              className={`email ${errors.userName ? "error-border" : ""}`}
+              type="text"
+              name="userName"
+              placeholder="My user"
+              autoComplete="user"
+              value={userName}
+              onChange={(e) => {
+                setUserName(e.target.value);
+                setErrors((prevErrors) => ({ ...prevErrors, userName: null }));
+              }}
+            />
+            {errors.userName && (
               <span className="error-icon-login ">
-                  <FontAwesomeIcon icon={faXmark} />
+                <FontAwesomeIcon icon={faXmark} />
               </span>
-            )}</div>
-          {errors.userName && <p className="error-message">{errors.userName}</p>}
+            )}
+          </div>
+          {errors.userName && (
+            <p className="error-message">{errors.userName}</p>
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -131,11 +144,13 @@ const Login = () => {
             </span>
             {errors.password && (
               <span className="error-icon">
-                  <FontAwesomeIcon icon={faXmark} />
+                <FontAwesomeIcon icon={faXmark} />
               </span>
             )}
           </div>
-          {errors.password && <p className="error-message">{errors.password}</p>}
+          {errors.password && (
+            <p className="error-message">{errors.password}</p>
+          )}
         </Form.Group>
         <Button variant="warning" type="submit">
           Submit
@@ -148,13 +163,15 @@ const Login = () => {
         <div className="mt-3">
           <i className="fa-solid fa-lock"></i>
           <p>
-            <FontAwesomeIcon icon={faLock} className='upload-icon' />
-            <Link className="fa-solid fa-lock" to="/reset-password">Forgot your password?</Link>
+            <FontAwesomeIcon icon={faLock} className="upload-icon" />
+            <Link className="fa-solid fa-lock" to="/reset-password">
+              Forgot your password?
+            </Link>
           </p>
         </div>
       </Form>
       <ToastContainer
-        position="top-center" 
+        position="top-center"
         closeOnClick={true}
         pauseOnHover={true}
         autoClose={1500}

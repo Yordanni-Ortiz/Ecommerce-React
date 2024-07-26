@@ -1,15 +1,49 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import '../assets/styles/MyAccount.css';
+import { setIsLogged } from '../store/slices/isLogged.slice';
+import getConfig from '../utils/getConfig';
+import Form from "react-bootstrap/Form";
+import PhoneInput from 'react-phone-input-2';
+import Button from "react-bootstrap/Button";
 
 function MyAccount() {
-  const userName = useSelector((state) => state.isLogged.userName);
-  const userFirstName = useSelector((state) => state.isLogged.userFirstName);
-  const userLastName = useSelector((state) => state.isLogged.userLastName);
-  const userEmail = useSelector((state) => state.isLogged.userEmail);
-  const userPhone = useSelector((state) => state.isLogged.userPhone);
+  const dispatch = useDispatch();
+  const { userId, userName, userFirstName, userLastName, userEmail, userPhone } = useSelector((state) => state.isLogged);
+  const [editMode, setEditMode] = useState(false);
+  const [newUserName, setNewUserName] = useState(userName);
+  const [newFirstName, setNewFirstName] = useState(userFirstName);
+  const [newLastName, setNewLastName] = useState(userLastName);
+  const [newEmail, setNewEmail] = useState(userEmail);
+  const [newPhone, setNewPhone] = useState(userPhone);
+
+  const handleSaveChanges = () => {
+    axios.put(`http://localhost:8080/api/v1/users/${userId}`, {
+      userId,
+      userName: newUserName,
+      firstName: newFirstName,
+      lastName: newLastName,
+      email: newEmail,
+      phone: newPhone
+    }, getConfig())
+    .then(response => {
+      dispatch(setIsLogged({
+        userId,
+        userName: newUserName,
+        userFirstName: newFirstName,
+        userLastName: newLastName,
+        userEmail: newEmail,
+        userPhone: newPhone
+      }));
+      setEditMode(false);
+    })
+    .catch(error => {
+      console.error('Error updating profile:', error);
+    });
+  };
 
   const [profileImage, setProfileImage] = useState(null);
 
@@ -51,35 +85,134 @@ function MyAccount() {
               <input
                 type='file'
                 accept='image/*'
-                onChange={handleImageUpload}
-                className='file-upload-input'
-              />EDIT
+                onChange={(e) => handleImageUpload(e)}
+              />
+              EDIT
             </label>
           </div>
-          <div className='user-info'>
-          <div>
-              <strong>USER</strong> 
-              <p>{userName}</p>
-            </div>
-            <div>
-              <strong>NAME</strong> 
-              <p>{userFirstName} {userLastName}</p>
-            </div>
-            <div>
-              <strong>EMAIL</strong> 
-              <p>{userEmail}</p> 
-            </div>
-            <div>
-              <strong>PHONE</strong> 
-              <p>+{userPhone}</p> 
-            </div>
-          </div>
+          
+            {editMode ? (
+              <div className='user-info-inputs'>
+                <div className='user-info-input'>
+                  <strong>USER</strong>
+                  <Form.Control
+                    type="text"
+                    className='new-user-name'
+                    onChange={(e) => setNewUserName(e.target.value)}
+                    value={newUserName}
+                    placeholder="New user"
+                    autoComplete="user-name"
+                    name="userName"
+                    required
+                  />
+                </div>
+                <div className='user-info-input '>
+                  <strong>NAME</strong>
+                  <div className='user-info-double-input'>
+                    <Form.Control className='new-first-name' id="formBasicFirstName"
+                      type="text"
+                      value={newFirstName}
+                      onChange={(e) => setNewFirstName(e.target.value)}
+                      placeholder="First name"
+                      autoComplete="user-name"
+                      name="firstName"
+                      required
+                    /> <hr />
+                    <Form.Control className='new-last-name' id="formBasicLastName"
+                      type="text"
+                      value={newLastName}
+                      onChange={(e) => setNewLastName(e.target.value)}
+                      placeholder="Last name"
+                      autoComplete="user-name"
+                      name="lastName"
+                      required
+                    />
+                    {/*<input
+                      type='text'
+                      value={newLastName}
+                      onChange={(e) => setNewLastName(e.target.value)}
+                      required
+                  />*/}
+                  </div>
+                </div>
+                <div className='user-info-input'>
+                  <strong>EMAIL</strong>
+                  <Form.Control
+                    className='new-email'
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                    type="email"
+                    placeholder="email@example.com"
+                    autoComplete="user-name"
+                    name="email"
+                    required
+                    readOnly
+                  />
+                 { /*
+                  <input
+                    type='email'
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                  />*/}
+                </div>
+                <div className='user-info-input'>
+                  <strong>PHONE</strong>
+                  <PhoneInput
+                    className="new-phone"
+                    /*country={formData.country}*/
+                    value={newPhone}
+                    onChange={(phone) => setNewPhone(phone)}
+                    inputProps={{
+                      required: true,
+                    }}
+                  />
+                  {/*
+                  <input
+                    type='text'
+                    value={newPhone}
+                    onChange={(e) => setNewPhone(e.target.value)}
+                  />*/}
+                </div>
+                <div className='button-save-container' >
+                  <Button className='button-save-update-user' onClick={handleSaveChanges} variant="warning" type="submit">
+                    Save
+                  </Button>
+                </div>
+                <div className='button-cancel-container' >
+                  <Button className='button-cancel-update-user' onClick={() => setEditMode(false)} variant="warning" type="submit">
+                    Cancel
+                  </Button>
+                </div>  
+                {/*<button onClick={() => setEditMode(false)}>Cancel</button>*/}
+              </div>
+            ) : (
+              <div className='user-info'>
+                <div>
+                  <strong>USER</strong>
+                  <p>{userName}</p>
+                </div>
+                <div>
+                  <strong>NAME</strong>
+                  <p>{userFirstName} {userLastName}</p>
+                </div>
+                <div>
+                  <strong>EMAIL</strong>
+                  <p>{userEmail}</p>
+                </div>
+                <div>
+                  <strong>PHONE</strong>
+                  <p>+{userPhone}</p>
+                </div >
+               <Button className='button-update-user-container' variant='warning' onClick={() => setEditMode(true)}>
+                  UPDATE
+                </Button>
+              </div>
+            )}
+       
         </div>
       </div>
     </div>
   );
 }
 
-export default MyAccount;
-
-
+export default MyAccount

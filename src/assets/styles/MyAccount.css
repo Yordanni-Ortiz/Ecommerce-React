@@ -16,7 +16,7 @@
 .account-title {
   display: flex;
   width: 100%;
-  max-width: 1200px; /* Ancho máximo del contenido para mejor legibilidad */
+  max-width: 1200px;
 }
 .content{
   padding: 0 40px 0 40px;
@@ -29,35 +29,109 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 1200px; /* Ancho máximo del contenido para mejor legibilidad */
+  max-width: 1200px; 
   padding: 20px;
-  background-color: #ffffff; /* Ejemplo de fondo */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  background-color: #ffffff; 
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .account-subtitle {
-  margin-bottom: 10px; /* Espacio inferior entre subtítulo y contenido */
+  margin-bottom: 10px; 
 }
 .profile-section {
-  margin: 20px; /* Espacio entre secciones */
+  margin: 20px; 
 }
 .user-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 80px; 
+  text-align: center; 
+  width: 60%;
+}
+.user-info-inputs {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Crea tres columnas de igual tamaño */
   gap: 20px 80px; /* Espacio entre las columnas */
   text-align: center; /* Centra el texto */
   width: 60%;
 }
+.user-info-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 64px;
+}
+.user-info-input input {
+ height: 24px;
+ margin-bottom: 20px;
+}
+.react-tel-input .form-control {
+height: 24px;
+margin-bottom: 20px !important;
+}
+.new-email {
+  background-color: #D1D1D1;
+  box-shadow: none;
+  border: none;
+}
+.new-email:focus {
+  background-color: #D1D1D1;
+  box-shadow: none;
+  border: none;
+}
+.new-user-name:focus,
+.new-first-name:focus, 
+.new-last-name:focus, 
+.phone:focus {
+  box-shadow: none;
+  border-color: orange;
+}
+.new-phone input:focus {
+  box-shadow: none; 
+  border-color: orange;
+}
+.new-phone input{
+  width: 100% !important;
+}
+.react-tel-input .flag-dropdown  {
+  height: 24px;
+}
+.user-info-double-input {
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+}
+.user-info-double-input input {
+  margin-bottom: 20px;
+}
+.button-update-user-container {
+  grid-column: 1 / span 2; 
+  text-align: center;
+  padding: 8px 40px;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  justify-self: center; /* Centra el contenedor en la celda */
+  align-self: center; /* Centra el contenedor verticalmente en la celda */
+  width: fit-content; /* Ajusta el ancho del botón al contenido */
+}
+.button-save-update-user{
+  width: 110px;
+}
+.button-cancel-update-user{
+  width: 110px;
+}
 strong {  
-  font-weight: 400;
+  font-weight: bold;
   color: #666;
 }
 .profile-image-container {
-  width: 200px; /* Ancho de la imagen de perfil */
-  height: 200px; /* Altura de la imagen de perfil */
-  overflow: hidden; /* Para recortar la imagen si es más grande */
-  border-radius: 50%; /* Bordes redondeados para imagen circular */
-  margin-bottom: 10px; /* Espacio entre la imagen y el input */
+  width: 200px;
+  height: 200px;
+  overflow: hidden; 
+  border-radius: 50%; 
+  margin-bottom: 10px; 
 }
 .profile-image {
   width: 100%;
@@ -81,11 +155,12 @@ strong {
 /* Estilo para el botón de carga de archivos con FontAwesome */
 .file-upload-label {
   position: absolute;
-  margin-top: -45px;
+  margin-top: -42px;
+  margin-left: 55px;
   display: inline-block;
   padding: 8px ;
   width: 80px;
-  background-color: orange;
+  background-color: #FF851B;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
@@ -111,16 +186,78 @@ strong {
   .account-content {
     display: inline-block;
   }
+  .button-cancel-update-user, 
+  .button-save-update-user  {
+    --bs-btn-padding-y: 0 !important;
+  }
   .file-upload-label {
     margin-top: 11.5rem;
+    margin-left: 0;
   }
   .user-info {
-    grid-template-columns: repeat(2, 1fr); /* Crea tres columnas de igual tamaño */
-    gap: 10px 30px; /* Espacio entre las columnas */
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    margin-top: 50px;
+    margin-bottom: 20px;
   } 
+  .user-info-inputs {
+    gap: 20px 30px; /* Espacio entre las columnas */
+    width: 100%;
+    padding: 0 15%;
+    margin-top: 52px;
+    margin-bottom: 20px;
+    text-align: center;
+    grid-template-areas:
+    "first first"
+    "second second"
+    "third third"
+    "fourth fourth"
+    "fifth sixth";
+  }
+  .user-info-inputs > :nth-child(1) {
+      grid-area: first;
+  }
+  .user-info-inputs > :nth-child(2) {
+      grid-area: second;
+  }
+  .user-info-inputs > :nth-child(3) {
+      grid-area: third;
+  }
+  .user-info-inputs > :nth-child(4) {
+      grid-area: fourth;
+  }
+  .user-info-inputs > :nth-child(5) {
+      grid-area: fifth;
+  }
+  .user-info-inputs > :nth-child(6) {
+      grid-area: sixth;
+  }
   .profile-section {
     display: flex;
     justify-content: center;
+  }
+  .button-save-update-user{
+    width: 80px;
+    height: 35px;
+  }
+  .button-cancel-update-user{
+    width: 80px;
+    height: 35px;
+  }
+  .button-update-user-container {
+    width: 80px;
+    height: 35px;
+    padding: 0;
+  }
+  .button-update-user-container:hover, 
+  .button-save-update-user:hover, 
+  .button-cancel-update-user:hover {
+      margin: -1px;
+  }
+}
+@media (max-width: 390px){
+  .account-content {
+    padding: 20px 0;
   }
 }
