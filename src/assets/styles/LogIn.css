@@ -2,3 +2,6 @@
     box-shadow: none;
     border-color: orange;
 }
+.card-login-container {
+    padding: 0 20px;
+}

@@ -94,89 +94,91 @@ const Login = () => {
   const loginError = () => toast("✘ Login failed. Please try again.");
 
   return (
-    <Card className="card-login">
-      <Form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        {errors.general && <p className="error-message">{errors.general}</p>}
-        <Form.Group className="mb-3" controlId="formBasicUserEmail">
-          <Form.Label>User</Form.Label>
-          <div className="password-wrapper">
-            <Form.Control
-              className={`email ${errors.userName ? "error-border" : ""}`}
-              type="text"
-              name="userName"
-              placeholder="My user"
-              autoComplete="user"
-              value={userName}
-              onChange={(e) => {
-                setUserName(e.target.value);
-                setErrors((prevErrors) => ({ ...prevErrors, userName: null }));
-              }}
-            />
+    <div className="card-login-container" >
+      <Card className="card-login">
+        <Form onSubmit={handleSubmit}>
+          <h1>Login</h1>
+          {errors.general && <p className="error-message">{errors.general}</p>}
+          <Form.Group className="mb-3" controlId="formBasicUserEmail">
+            <Form.Label>User</Form.Label>
+            <div className="password-wrapper">
+              <Form.Control
+                className={`email ${errors.userName ? "error-border" : ""}`}
+                type="text"
+                name="userName"
+                placeholder="My user"
+                autoComplete="user"
+                value={userName}
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                  setErrors((prevErrors) => ({ ...prevErrors, userName: null }));
+                }}
+              />
+              {errors.userName && (
+                <span className="error-icon-login ">
+                  <FontAwesomeIcon icon={faXmark} />
+                </span>
+              )}
+            </div>
             {errors.userName && (
-              <span className="error-icon-login ">
-                <FontAwesomeIcon icon={faXmark} />
-              </span>
+              <p className="error-message">{errors.userName}</p>
             )}
-          </div>
-          {errors.userName && (
-            <p className="error-message">{errors.userName}</p>
-          )}
-        </Form.Group>
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <div className="password-wrapper">
-            <Form.Control
-              className={`password ${errors.password ? "error-border" : ""}`}
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setErrors((prevErrors) => ({ ...prevErrors, password: null }));
-              }}
-            />
-            <span className="show-password-icon" onClick={toggleShowPassword}>
-              <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
-            </span>
-            {errors.password && (
-              <span className="error-icon">
-                <FontAwesomeIcon icon={faXmark} />
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <div className="password-wrapper">
+              <Form.Control
+                className={`password ${errors.password ? "error-border" : ""}`}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setErrors((prevErrors) => ({ ...prevErrors, password: null }));
+                }}
+              />
+              <span className="show-password-icon" onClick={toggleShowPassword}>
+                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
               </span>
+              {errors.password && (
+                <span className="error-icon">
+                  <FontAwesomeIcon icon={faXmark} />
+                </span>
+              )}
+            </div>
+            {errors.password && (
+              <p className="error-message">{errors.password}</p>
             )}
+          </Form.Group>
+          <Button variant="warning" type="submit">
+            Submit
+          </Button>
+          <div className="mt-3">
+            <p>
+              Don't have an account? <Link to="/register">Sign up here</Link>
+            </p>
           </div>
-          {errors.password && (
-            <p className="error-message">{errors.password}</p>
-          )}
-        </Form.Group>
-        <Button variant="warning" type="submit">
-          Submit
-        </Button>
-        <div className="mt-3">
-          <p>
-            Don't have an account? <Link to="/register">Sign up here</Link>
-          </p>
-        </div>
-        <div className="mt-3">
-          <i className="fa-solid fa-lock"></i>
-          <p>
-            <FontAwesomeIcon icon={faLock} className="upload-icon" />
-            <Link className="fa-solid fa-lock" to="/reset-password">
-              Forgot your password?
-            </Link>
-          </p>
-        </div>
-      </Form>
-      <ToastContainer
-        position="top-center"
-        closeOnClick={true}
-        pauseOnHover={true}
-        autoClose={1500}
-      />
-    </Card>
+          <div className="mt-3">
+            <i className="fa-solid fa-lock"></i>
+            <p>
+              <FontAwesomeIcon icon={faLock} className="upload-icon" />
+              <Link className="fa-solid fa-lock" to="/reset-password">
+                Forgot your password?
+              </Link>
+            </p>
+          </div>
+        </Form>
+        <ToastContainer
+          position="top-center"
+          closeOnClick={true}
+          pauseOnHover={true}
+          autoClose={1500}
+        />
+      </Card>
+    </div>
   );
 };
 
