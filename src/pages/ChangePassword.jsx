@@ -95,7 +95,7 @@ const ChangePassword = () => {
 
 
     return (
-        <div>
+        <div className="card-register-container" >
             <Card className="card-register">
                 <Form onSubmit={handleSubmit}>
                     <h1>Change Password</h1>
