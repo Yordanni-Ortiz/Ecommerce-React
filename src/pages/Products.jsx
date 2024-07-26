@@ -126,7 +126,7 @@ const Products = () => {
               </Button>
             </InputGroup>
           </Col>
-          <Col className="mt-3" >
+          <Col className="mt mt-3" >
             <div className="range-slider">
               <h5 className="rangler-slider-title" >Price</h5>
               <ReactSlider
