@@ -4,9 +4,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import linkedin from "../../public/linkedin.png";
-import whatsapp from "../../public/whatsapp.png";
-import gmail from "../../public/gmail.png";
+import linkedin from "/linkedin.png";
+import whatsapp from "/whatsapp.png";
+import gmail from "/gmail.png";
 import "/src/assets/styles/Footer.css";
 
 function Footer() {
@@ -15,7 +15,6 @@ function Footer() {
   const mail =
     "https://mail.google.com/mail/u/0/?view=cm&fs=1&to=yordannimod@gmail.com";
   const linkedIn = "https://www.linkedin.com/in/yordanni-ortiz/";
-  const instaGram = "https://www.instagram.com/yordanni.ortiz/";
 
   return (
     <>
