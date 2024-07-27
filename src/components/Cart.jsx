@@ -1,13 +1,10 @@
-// Dentro de Cart.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import ListGroup from "react-bootstrap/ListGroup";
 import { Trash } from "react-bootstrap-icons";
-import axios from "axios";
-import getConfig from "/src/utils/getConfig";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import {
   getCartProductsThunk,
   removeCartProductThunk,
@@ -47,15 +44,10 @@ function Cart({ sendLaunch, launch }) {
   const cleanCart = async () => {
     try {
       dispatch(setIsLoading(true));
-  
       const ids = cartProducts.map((product) => product.id);
-      console.log("ids:", ids)
-      // Recorre los IDs y elimina cada producto uno por uno
       ids.forEach(async (id) => {
-        console.log(`Eliminando producto con ID: ${id}`);
         await dispatch(removeCartProductThunk(id));
-    });
-      // Después de eliminar todos los productos, actualizar el estado del carrito
+      });
       dispatch(setCartProducts([]));
     } catch (error) {
       console.error('Error cleaning cart:', error);
@@ -65,16 +57,12 @@ function Cart({ sendLaunch, launch }) {
   };
   
   const removeProduct = async (id) => {
-    console.log('Removiendo ID del carrito cart:', id);
     try {
-      // Despacha el Thunk correctamente usando dispatch
       await dispatch(removeCartProductThunk(id));
     } catch (error) {
       console.error('Error removing product Cart:', error);
-      throw error;
     }
   };
-  
 
   const handleClose = () => sendLaunch(false);
 
@@ -105,7 +93,6 @@ function Cart({ sendLaunch, launch }) {
         }
       });
       setProducts(preparedProducts);
-      console.log("Prepared Products:", preparedProducts);
     } else {
       setProducts(cartProducts);
     }
@@ -115,27 +102,29 @@ function Cart({ sendLaunch, launch }) {
     let newQuantity = product?.quantity;
 
     if (operation === "subs") {
-      newQuantity = Math.max(1, newQuantity - 1); // Evita cantidades negativas
+      newQuantity = Math.max(1, newQuantity - 1);
     } else if (operation === "add") {
-      newQuantity++; // Incrementa la cantidad
+      newQuantity++;
     }
 
     dispatch(updateCartProductThunk(product.id, newQuantity));
   };
 
   return (
-    <Offcanvas show={launch} onHide={handleClose} placement="end">
-      <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Cart</Offcanvas.Title>
-      </Offcanvas.Header>
-      <Offcanvas.Body>
-        <ListGroup variant="flush">
+    <>
+      {launch && <div className="cart-overlay" onClick={handleClose}></div>}
+      <div className={`cart-container ${launch ? 'show' : ''}`}>
+        <button className="cart-close" onClick={handleClose}>
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
+        <h2>Cart</h2>
+        <div className="cart-items">
           {products.map((product, index) => (
-            <ListGroup.Item id="card-item" key={index}>
-              <span id="quantity">{product.quantity}</span>
-              <div id="item-data">
+            <div className="cart-item" key={index}>
+              <span className="cart-quantity">{product.quantity}</span>
+              <div className="item-data">
                 <figure
-                  id="card-img"
+                  className="item-img"
                   onClick={() =>
                     handleNavigate(`/product/${product.product.id}`)
                   }
@@ -144,45 +133,48 @@ function Cart({ sendLaunch, launch }) {
                     src={product.product?.productImgs?.[0].url}
                     alt={`This is a ${product.product?.title} image`}
                   />
-                  <figcaption>{product.product.title}</figcaption>
+                  <figcaption><strong className="product-title">{product.product.title}</strong></figcaption>
                   <span>Price</span>
-                  <span>{`${product.product.price}`}</span>
+                  <span><strong className="price-product-cart">${`${product.product.price}`}</strong></span>
                 </figure>
-                <span
-                  id="substract-product"
+                <button
+                  className="update-quantity subtract"
                   onClick={() => handleUpdateQuantity("subs", product)}
                 >
                   -
-                </span>
-                <span
-                  id="add-product"
+                </button>
+                <button
+                  className="update-quantity add"
                   onClick={() => handleUpdateQuantity("add", product)}
                 >
                   +
-                </span>
-                <span
-                  id="card-trash"
-                  onClick={() =>  removeProduct(product.id)}
+                </button>
+                <button
+                  className="remove-product"
+                  onClick={() => removeProduct(product.id)}
                 >
-                  <Trash id="trash" />
-                </span>
+                  <Trash className="trash-icon" />
+                </button>
               </div>
-            </ListGroup.Item>
+            </div>
           ))}
-        </ListGroup>
-        <div id="cart-total">
+        </div>
+        <div className="cart-total">
           <span>Total</span>
           <span>{`$${total}`}</span>
         </div>
-        <Button
-          id="cart-checkout"
+        <div className="button-pay-container">
+          <Button
           variant="warning"
+          className="checkout-button"
           onClick={() => handlePurchase("/purchases")}
-        >
-          Buy
-        </Button>
-      </Offcanvas.Body>
-    </Offcanvas>
+          >
+            BUY
+          </Button>
+        </div>
+        
+      </div>
+    </>
   );
 }
 
