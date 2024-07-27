@@ -66,9 +66,15 @@
  height: 24px;
  margin-bottom: 20px;
 }
-.react-tel-input .form-control {
+.input-phone-container {
+  width: 100%;
+}
+.input-phone-container .react-tel-input .form-control {
 height: 24px;
 margin-bottom: 20px !important;
+}/*OJO */
+.input-phone-container .react-tel-input .flag-dropdown  {
+  height: 24px;
 }
 .new-email {
   background-color: #D1D1D1;
@@ -93,9 +99,6 @@ margin-bottom: 20px !important;
 }
 .new-phone input{
   width: 100% !important;
-}
-.react-tel-input .flag-dropdown  {
-  height: 24px;
 }
 .user-info-double-input {
  display: flex;

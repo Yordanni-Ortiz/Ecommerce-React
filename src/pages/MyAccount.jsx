@@ -157,15 +157,18 @@ function MyAccount() {
                 </div>
                 <div className='user-info-input'>
                   <strong>PHONE</strong>
-                  <PhoneInput
-                    className="new-phone"
-                    /*country={formData.country}*/
-                    value={newPhone}
-                    onChange={(phone) => setNewPhone(phone)}
-                    inputProps={{
-                      required: true,
-                    }}
-                  />
+                  <div className='input-phone-container' >
+                    <PhoneInput
+                      className="new-phone"
+                      /*country={formData.country}*/
+                      value={newPhone}
+                      onChange={(phone) => setNewPhone(phone)}
+                      inputProps={{
+                        required: true,
+                      }}
+                    />  
+                  </div>
+                  
                   {/*
                   <input
                     type='text'
