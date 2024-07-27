@@ -8,18 +8,22 @@ import Nav from "react-bootstrap/Nav";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsLogged, clearLogin } from "../store/slices/isLogged.slice";
+import { BsBagCheckFill } from "react-icons/bs";
+import { FaBoxOpen } from "react-icons/fa";
+import { CiLogin, CiLogout } from "react-icons/ci";
 import "../assets/styles/Navbar.css";
 
 function $Navbar() {
   const [launch, setLaunch] = useState(false);
   const isLoggedIn = useSelector((state) => state.isLogged.isLoggedIn);
-  const userName = useSelector((state) =>  state.isLogged.userName)
+  const userName = useSelector((state) => state.isLogged.userName);
   const userFirstName = useSelector((state) => state.isLogged.userFirstName);
   const userLastName = useSelector((state) => state.isLogged.userLastName);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -75,29 +79,33 @@ function $Navbar() {
     }
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <>
       <Navbar className="custom-navbar" variant="light" expand="sm">
-        <Container id="header" fluid>
+        <Container className="custom-container" id="header" fluid>
           <Navbar.Brand to="/" as={Link}>
             Electronic Shop
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "130px" }}
-              navbarScroll
-            >
-              <Nav.Link to="/" as={Link}>
-                Products
+          <div className={`hamburger ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div className={`menu ${isMenuOpen ? 'show' : ''}`}>
+            <Nav className="nav-menu"/*className="me-auto my-2 my-lg-0"*/>
+              <Nav.Link className="navbar-options" to="/" as={Link}>
+                <FaBoxOpen className="icon"  /> Products
               </Nav.Link>
-              <Nav.Link to="/purchases" as={Link}>
-                Purchases
+              <Nav.Link className="navbar-options" to="/purchases" as={Link}>
+                <BsBagCheckFill className="icon" />Purchases
               </Nav.Link>
               {!isLoggedIn ? (
-                <Nav.Link to="/login" as={Link}>
-                  Sign In
+                <Nav.Link className="navbar-options" to="/login" as={Link}>
+                  <CiLogin className="icon" />Sign In
                 </Nav.Link>
               ) : (
                 ""
@@ -108,7 +116,6 @@ function $Navbar() {
               <div className="user-dropdown-container" ref={dropdownRef}>
                 <div className="user-name" onClick={toggleDropdown}>
                   <div className="user-photo">
-                    {/* Aquí se puede agregar la lógica para mostrar la foto si existe */}
                     <div className="initial-name">{getFirstNameInitials(userFirstName)}</div>
                     <div className="initial-name">{getLastNameInitials(userLastName)}</div>
                   </div>
@@ -126,10 +133,11 @@ function $Navbar() {
                     </Nav.Link>
                   </li>
                   <hr />
-                  <li className="dropdown-item log-out" onClick={logout}>Logout</li>
+                  <li className="dropdown-item log-out" onClick={logout}>Logout<CiLogout className="icon-logout"/></li>
                 </ul>
               </div>
-            )}
+            )}</div>
+        </Container>
             <Button
               className="custom-button"
               variant="warning"
@@ -137,8 +145,7 @@ function $Navbar() {
             >
               <Cart />
             </Button>
-          </Navbar.Collapse>
-        </Container>
+          
       </Navbar>
       <$Cart sendLaunch={(launch) => setLaunch(launch)} launch={launch} />
     </>
@@ -146,3 +153,4 @@ function $Navbar() {
 }
 
 export default $Navbar;
+

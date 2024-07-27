@@ -9,8 +9,22 @@
 #header .nav-link {
   color: white;
 }
+.container-fluid {
+  --bs-gutter-x: 0;
+}
+.custom-container {
+  width: 100%;
+}
 .custom-navbar {
   background-color: #131921;
+  padding: 8px 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 3;
+  top: 0;
+}
+.nav-products {
+  margin-top: 65px;
 }
 .offcanvas-header {
   background-color: #131921;
@@ -35,6 +49,9 @@
 .user-dropdown-container {
   position: relative;
   display: inline-block;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 .centered-character {
   display: inline-block;
@@ -65,7 +82,6 @@
   justify-content: center;
   align-items: center;
   top: 120%;
-  left: -5px;
   min-width: 160px;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -115,4 +131,115 @@ hr {
   justify-content: center;
   margin-right: 10px;
   font-size: 28px;
+}
+.menu {
+  width: 100%;
+  align-items: center;
+}
+.menu .custom-button  {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+.menu {
+  display: flex;
+}
+.nav-menu {
+  
+  align-items: center;
+}
+.navbar-options {
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+}
+.icon-logout {
+  margin-left: 8px !important;
+}
+.navbar-options .icon {
+  margin-right: 8px;
+}
+/* Nuevo CSS para el menú hamburguesa */
+.hamburger {
+  cursor: pointer;
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 10;
+}
+
+.hamburger div {
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.hamburger.open div:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.hamburger.open div:nth-child(2) {
+  opacity: 0;
+  /*transform: translateX(20px);*/
+}
+
+.hamburger.open div:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Mostrar en pantallas móviles */
+  }
+  .user-dropdown-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 8px 0;
+  }
+  .nav-menu {
+  display: inline-block;
+  text-align: center;
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    background: #232F3E;
+    height: 100vh;
+    text-align: left;
+    padding: 2rem;
+    position: absolute;
+    top: 0;
+    left: -50%;
+    transition: transform 0.3s ease-in-out;
+    width: 49%;
+    z-index: 3;
+  }
+  .user-name {
+    margin: 0 !important;
+  }
+  
+
+  .menu.show {
+    transform: translateX(100%);
+  }
+  .custom-button{ 
+    position: absolute;
+    right: 60px;
+  }
+}
+@media (max-width: 320px) {
+  .custom-button{ 
+    position: static;
+   
+  }
 }

@@ -1,3 +1,7 @@
+.container-purchases{
+  margin-top: 90px   !important;
+  height: 25vh;
+}
 #purchases .card-body {
   display: flex;
   justify-content: space-between;

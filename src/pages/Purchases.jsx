@@ -28,8 +28,8 @@ const Purchases = () => {
     }, [userPurchases]);
 
     return (
-        <Container id="purchases" className="my-4">
-            <div>
+        <Container id="purchases" className=" my-4">
+            <div className="container-purchases">
                 <h2>My purchases</h2>
                 <hr />
                 {userPurchases && userPurchases.length > 0 ? (

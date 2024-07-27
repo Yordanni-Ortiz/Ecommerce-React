@@ -60,201 +60,203 @@ const Product = () => {
 
 
   return (
-    <Container className="my-5">
-      <div>
-        <Row xs={1} md={2} lg={2}>
-          <Col lg={6}>
-            <div className="carousel">
-              <Carousel fade variant="dark" interval="15000">
-                <Carousel.Item
-                  style={{
-                    padding: "3rem 4rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "100% ",
-                  }}
-                >
-                  <img
+    <div className="container-product" >
+      <Container className="my-5">
+        <div>
+          <Row xs={1} md={2} lg={2}>
+            <Col lg={6}>
+              <div className="carousel">
+                <Carousel fade variant="dark" interval="15000">
+                  <Carousel.Item
                     style={{
-                      height: "400px",
-                      objectFit: "contain",
-                    }}
-                    // className="carousel_img"
-                    src={detail?.productImgs?.[0].url}
-                    alt="First slide"
-                  />
-                </Carousel.Item>
-
-                <Carousel.Item
-                  style={{
-                    padding: "3rem 4rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "100% ",
-                  }}
-                >
-                  <img
-                    style={{
-                      height: "400px",
-                      objectFit: "contain",
-                    }}
-                    // className="carousel_img"
-                    src={detail?.productImgs?.[1].url}
-                    alt="Second slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item
-                  style={{
-                    padding: "3rem 4rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "100% ",
-                  }}
-                >
-                  <img
-                    style={{
-                      height: "400px",
-                      objectFit: "contain",
-                    }}
-                    // className="carousel_img"
-                    src={detail?.productImgs?.[2].url}
-                    alt="Third slide"
-                  />
-                </Carousel.Item>
-              </Carousel>
-            </div>
-          </Col>
-          <Col
-            lg={6}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <h2>{detail.title}</h2>
-
-            <p>{detail.description}</p>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <div>
-                <h5>Price</h5>
-                <p>
-                  <strong>${detail.price}</strong>
-                </p>
-              </div>
-              <div>
-                <h5>Quantity</h5>
-                <div style={{ display: "flex" }}>
-                  <Button
-                    onClick={() =>
-                      count === 1 ? setCount(count) : setCount(count - 1)
-                    }
-                    variant="secondary"
-                  >
-                    -
-                  </Button>
-                  <div
-                    style={{
-                      width: "30px",
-                      height: "30px",
+                      padding: "3rem 4rem",
                       display: "flex",
                       justifyContent: "center",
-                      alignItems: "center",
+                      width: "100% ",
                     }}
                   >
-                    {count}
-                  </div>
-                  <Button
-                    onClick={() => setCount(count + 1)}
-                    variant="secondary"
-                  >
-                    +
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div>
-              <Button 
-                variant="warning" 
-                onClick={() => isAuthenticated ? handleAddCart(detail) : handleShow()}>
-                add to cart
-              </Button>
-            </div>
-          </Col>
-        </Row>
-
-        <hr />
-        <br />
-        <h3>Related products</h3>
-        <br />
-        <Row xs={1} md={2} lg={3}>
-          {productsByCategory?.map((producItem) => (
-            <Col key={producItem.id}>
-              <Card style={{ margin: "1rem" }}>
-                <Carousel variant="dark" interval="15000">
-                  <Carousel.Item className="cards">
                     <img
-                      className="d-block w-100"
-                      src={producItem.productImgs[0].url}
-                      style={{ height: 300, objectFit: "contain" }}
+                      style={{
+                        height: "400px",
+                        objectFit: "contain",
+                      }}
+                      // className="carousel_img"
+                      src={detail?.productImgs?.[0].url}
                       alt="First slide"
                     />
                   </Carousel.Item>
-                  <Carousel.Item className="cards">
+
+                  <Carousel.Item
+                    style={{
+                      padding: "3rem 4rem",
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100% ",
+                    }}
+                  >
                     <img
-                      className="d-block w-100"
-                      src={producItem.productImgs[1].url}
-                      style={{ height: 300, objectFit: "contain" }}
+                      style={{
+                        height: "400px",
+                        objectFit: "contain",
+                      }}
+                      // className="carousel_img"
+                      src={detail?.productImgs?.[1].url}
                       alt="Second slide"
                     />
                   </Carousel.Item>
-                  <Carousel.Item className="cards w-100">
+                  <Carousel.Item
+                    style={{
+                      padding: "3rem 4rem",
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100% ",
+                    }}
+                  >
                     <img
-                      className="d-block w-100"
-                      src={producItem.productImgs[2].url}
-                      style={{ height: 300, objectFit: "contain" }}
+                      style={{
+                        height: "400px",
+                        objectFit: "contain",
+                      }}
+                      // className="carousel_img"
+                      src={detail?.productImgs?.[2].url}
                       alt="Third slide"
                     />
                   </Carousel.Item>
                 </Carousel>
-                <Card.Body className="card__body">
-                  <Card.Title>{producItem.title}</Card.Title>
-                  <Card.Text>${producItem.price}</Card.Text>
-                  <div className="bu">
+              </div>
+            </Col>
+            <Col
+              lg={6}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <h2>{detail.title}</h2>
+
+              <p>{detail.description}</p>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <h5>Price</h5>
+                  <p>
+                    <strong>${detail.price}</strong>
+                  </p>
+                </div>
+                <div>
+                  <h5>Quantity</h5>
+                  <div style={{ display: "flex" }}>
                     <Button
-                      variant="light"
-                      as={Link}
-                      to={`/product/${producItem.id}`}
+                      onClick={() =>
+                        count === 1 ? setCount(count) : setCount(count - 1)
+                      }
+                      variant="secondary"
                     >
-                      Details
+                      -
                     </Button>
-                    <Button
-                      variant="warning"
-                      onClick={() => handleAddCart(detail)}
+                    <div
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
-                      <Cart />
+                      {count}
+                    </div>
+                    <Button
+                      onClick={() => setCount(count + 1)}
+                      variant="secondary"
+                    >
+                      +
                     </Button>
                   </div>
-                </Card.Body>
-              </Card>
+                </div>
+              </div>
+              <div>
+                <Button 
+                  variant="warning" 
+                  onClick={() => isAuthenticated ? handleAddCart(detail) : handleShow()}>
+                  add to cart
+                </Button>
+              </div>
             </Col>
-          ))}
-        </Row>
-      </div>
-      <ModalAddProducts
-        show={show} 
-        handleClose={handleClose} 
-      />
-      <ToastContainer
-        position="top-center" 
-        pauseOnHover={true}
-      />
-    </Container>
+          </Row>
+
+          <hr />
+          <br />
+          <h3>Related products</h3>
+          <br />
+          <Row xs={1} md={2} lg={3}>
+            {productsByCategory?.map((producItem) => (
+              <Col key={producItem.id}>
+                <Card style={{ margin: "1rem" }}>
+                  <Carousel variant="dark" interval="15000">
+                    <Carousel.Item className="cards">
+                      <img
+                        className="d-block w-100"
+                        src={producItem.productImgs[0].url}
+                        style={{ height: 300, objectFit: "contain" }}
+                        alt="First slide"
+                      />
+                    </Carousel.Item>
+                    <Carousel.Item className="cards">
+                      <img
+                        className="d-block w-100"
+                        src={producItem.productImgs[1].url}
+                        style={{ height: 300, objectFit: "contain" }}
+                        alt="Second slide"
+                      />
+                    </Carousel.Item>
+                    <Carousel.Item className="cards w-100">
+                      <img
+                        className="d-block w-100"
+                        src={producItem.productImgs[2].url}
+                        style={{ height: 300, objectFit: "contain" }}
+                        alt="Third slide"
+                      />
+                    </Carousel.Item>
+                  </Carousel>
+                  <Card.Body className="card__body">
+                    <Card.Title>{producItem.title}</Card.Title>
+                    <Card.Text>${producItem.price}</Card.Text>
+                    <div className="bu">
+                      <Button
+                        variant="light"
+                        as={Link}
+                        to={`/product/${producItem.id}`}
+                      >
+                        Details
+                      </Button>
+                      <Button
+                        variant="warning"
+                        onClick={() => handleAddCart(detail)}
+                      >
+                        <Cart />
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </div>
+        <ModalAddProducts
+          show={show} 
+          handleClose={handleClose} 
+        />
+        <ToastContainer
+          position="top-center" 
+          pauseOnHover={true}
+        />
+      </Container>
+    </div>
   );
 };
 export default Product;

@@ -87,7 +87,7 @@ const Register = () => {
   const phoneError = () => toast("Enter a correct phone number.")
 
   return (
-    <div>
+    <div className='card-register-container' >
       <Card className='card-register'>
         <Form onSubmit={handleSubmit}>
           <h1>Register</h1>

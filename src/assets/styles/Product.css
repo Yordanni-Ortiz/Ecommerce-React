@@ -1,8 +1,10 @@
+.container-product{
+    margin-top: 65px;
+    padding-top: 1px;
+}
 .my-5{
     background-color: white;
-    padding: 20px;
 }
-
 .card .carousel-indicators{
     margin-bottom: -12px;
 }

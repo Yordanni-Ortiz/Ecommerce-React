@@ -3,5 +3,6 @@
     border-color: orange;
 }
 .card-login-container {
-    padding: 0 20px;
+    padding: 20px;
+    margin-top: 65px;
 }
