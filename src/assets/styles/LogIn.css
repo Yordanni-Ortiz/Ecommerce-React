@@ -6,3 +6,8 @@
     padding: 20px;
     margin-top: 65px;
 }
+.card-login {
+    max-width: 500px; 
+    margin: 3rem auto; 
+    padding: 2rem;
+  }
