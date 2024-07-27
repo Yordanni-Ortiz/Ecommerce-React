@@ -30,19 +30,6 @@ function $Navbar() {
     setIsOpen(false);
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -56,6 +43,7 @@ function $Navbar() {
 
   const handleDropdownItemClick = () => {
     setIsOpen(false); // Cierra el menú desplegable cuando se hace clic en una opción
+    setIsMenuOpen(false); // Cierra el menú hamburguesa también
   };
 
   const getFirstNameInitials = (firstName) => {
@@ -83,6 +71,11 @@ function $Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleNavLinkClick = (path) => {
+    setIsMenuOpen(false);
+    navigate(path);
+  };
+
   return (
     <>
       <Navbar className="custom-navbar" variant="light" expand="sm">
@@ -96,15 +89,15 @@ function $Navbar() {
             <div></div>
           </div>
           <div className={`menu ${isMenuOpen ? 'show' : ''}`}>
-            <Nav className="nav-menu"/*className="me-auto my-2 my-lg-0"*/>
-              <Nav.Link className="navbar-options" to="/" as={Link}>
-                <FaBoxOpen className="icon"  /> Products
+            <Nav className="nav-menu">
+              <Nav.Link className="navbar-options" onClick={() => handleNavLinkClick("/")}>
+                <FaBoxOpen className="icon" /> Products
               </Nav.Link>
-              <Nav.Link className="navbar-options" to="/purchases" as={Link}>
+              <Nav.Link className="navbar-options" onClick={() => handleNavLinkClick("/purchases")}>
                 <BsBagCheckFill className="icon" />Purchases
               </Nav.Link>
               {!isLoggedIn ? (
-                <Nav.Link className="navbar-options" to="/login" as={Link}>
+                <Nav.Link className="navbar-options" onClick={() => handleNavLinkClick("/login")}>
                   <CiLogin className="icon" />Sign In
                 </Nav.Link>
               ) : (
@@ -123,29 +116,29 @@ function $Navbar() {
                 </div>
                 <ul className={`dropdown-menu ${isOpen ? 'show' : ''}`}>
                   <li className="dropdown-item" onClick={handleDropdownItemClick}>
-                    <Nav.Link className="nav-dropdown-options" to="/account" as={Link}>
+                    <Nav.Link className="nav-dropdown-options" onClick={() => handleNavLinkClick("/account")}>
                       My Account
                     </Nav.Link>
                   </li>
                   <li className="dropdown-item" onClick={handleDropdownItemClick}>
-                    <Nav.Link className="nav-dropdown-options" to="/change-password" as={Link}>
+                    <Nav.Link className="nav-dropdown-options" onClick={() => handleNavLinkClick("/change-password")}>
                       My Password
                     </Nav.Link>
                   </li>
                   <hr />
-                  <li className="dropdown-item log-out" onClick={logout}>Logout<CiLogout className="icon-logout"/></li>
+                  <li className="dropdown-item log-out" onClick={logout}>Logout<CiLogout className="icon-logout" /></li>
                 </ul>
               </div>
-            )}</div>
+            )}
+          </div>
         </Container>
-            <Button
-              className="custom-button"
-              variant="warning"
-              onClick={() => setLaunch(!launch)}
-            >
-              <Cart />
-            </Button>
-          
+        <Button
+          className="custom-button"
+          variant="warning"
+          onClick={() => setLaunch(!launch)}
+        >
+          <Cart />
+        </Button>
       </Navbar>
       <$Cart sendLaunch={(launch) => setLaunch(launch)} launch={launch} />
     </>
@@ -153,4 +146,3 @@ function $Navbar() {
 }
 
 export default $Navbar;
-
