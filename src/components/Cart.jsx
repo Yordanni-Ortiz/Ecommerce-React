@@ -14,10 +14,13 @@ import { addUserPurchaseThunk } from "/src/store/slices/userPurchases.slice";
 import { setIsLoading } from "/src/store/slices/isLoading.slice";
 import { setCartProducts } from "/src/store/slices/cartProducts.slice";
 import "/src/assets/styles/Cart.css";
+import Modal from "react-bootstrap/Modal";
+import "/src/assets/styles/ModalPay.css";
 
 function Cart({ sendLaunch, launch }) {
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
   const cartProducts = useSelector((state) => state.cartProducts);
   const getProducts = useSelector((state) => state.getProducts);
   const dispatch = useDispatch();
@@ -64,17 +67,20 @@ function Cart({ sendLaunch, launch }) {
     }
   };
 
-  const handleClose = () => sendLaunch(false);
+  const handleCloseModal = () => setShowModal(false);
 
-  const handlePurchase = (url) => {
+  const handleShow = () => setShowModal(true);
+
+  const handlePurchase = () => {
     dispatch(addUserPurchaseThunk({}));
     cleanCart();
-    handleNavigate(url);
+    handleNavigate("/purchases");
+    sendLaunch(false); // Cerrar el carrito solo cuando se concreta la compra
   };
 
   const handleNavigate = (url) => {
     navigate(url);
-    handleClose();
+    handleCloseModal();
   };
 
   const prepareProducts = () => {
@@ -112,9 +118,9 @@ function Cart({ sendLaunch, launch }) {
 
   return (
     <>
-      {launch && <div className="cart-overlay" onClick={handleClose}></div>}
+      {launch && <div className="cart-overlay" onClick={() => sendLaunch(false)}></div>}
       <div className={`cart-container ${launch ? 'show' : ''}`}>
-        <button className="cart-close" onClick={handleClose}>
+        <button className="cart-close" onClick={() => sendLaunch(false)}>
           <FontAwesomeIcon icon={faXmark} />
         </button>
         <h2>Cart</h2>
@@ -165,14 +171,32 @@ function Cart({ sendLaunch, launch }) {
         </div>
         <div className="button-pay-container">
           <Button
-          variant="warning"
-          className="checkout-button"
-          onClick={() => handlePurchase("/purchases")}
+            variant="warning"
+            className="checkout-button"
+            onClick={handleShow} // Mostrar el modal en lugar de proceder directamente
           >
             BUY
           </Button>
         </div>
-        
+
+        <Modal id="modal-pay" show={showModal} onHide={handleCloseModal}>
+          <Modal.Header>
+            <Modal.Title>Electronic Shop</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className='message-modal-add-product' >
+              <p className="mt-4">Are you sure you want to proceed with this purchase?</p>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button className="accept-buy-button" variant="warning" onClick={handlePurchase}>
+              ACCEPT
+            </Button>
+            <Button className="cancel-buy-button" variant="warning" onClick={handleCloseModal}>
+              CANCEL
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

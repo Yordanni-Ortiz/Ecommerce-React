@@ -1,0 +1,42 @@
+#modal-pay .modal-header {
+    flex-wrap: wrap;
+  }
+  
+  #modal-pay .modal-header .modal-body {
+    display: flex;
+    justify-content: center;
+  }
+  
+  #modal-pay .modal-header .modal-body p {
+    margin: 0;
+    color: var(--bs-primary);
+  }
+  
+  #modal-pay .modal-header + .modal-body {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  #modal-pay .modal-header + .modal-body div {
+    flex-grow: 1;
+  }
+  
+  #modal-pay .modal-header + .modal-body div h5{
+    font-weight: 600;
+  }
+  
+  #modal-pay .modal-header + .modal-body div:nth-child(1) {
+    width: 100px;
+  }
+  
+  #modal-pay .modal-footer {
+    height: 75px;
+  }
+  body {
+    overflow-y: scroll !important; /* Mantiene el scrollbar siempre visible */
+  }
+  body.modal-open {
+    padding-right: 0px !important; /* Esto puede variar según el ancho del scrollbar del navegador */
+    overflow: hidden;
+  }
+ 
