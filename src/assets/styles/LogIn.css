@@ -11,3 +11,6 @@
     margin: 3rem auto; 
     padding: 2rem;
   }
+form button:hover {
+    margin-bottom: 0.7px;
+}

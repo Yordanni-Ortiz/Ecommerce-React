@@ -181,6 +181,7 @@ const Product = () => {
               </div>
               <div>
                 <Button 
+                  className="add-to-cart-button"
                   variant="warning" 
                   onClick={() => isAuthenticated ? handleAddCart(detail) : handleShow()}>
                   add to cart

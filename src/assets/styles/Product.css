@@ -8,3 +8,6 @@
 .card .carousel-indicators{
     margin-bottom: -12px;
 }
+.container-product .add-to-cart-button {
+    margin-bottom: 0.7px !important;
+}
