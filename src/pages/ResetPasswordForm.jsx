@@ -38,7 +38,7 @@ const ResetPasswordForm = () => {
         // Añadir un retraso de 2 segundos
         setTimeout(() => {
           setIsLoading(false);
-        }, 2000);
+        }, 1000);
       }
     };
 
