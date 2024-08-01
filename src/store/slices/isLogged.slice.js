@@ -5,7 +5,8 @@ const initialUserFirstName = localStorage.getItem("userFirstName") || '';
 const initialUserLastName = localStorage.getItem("userLastName") || '';
 const initialUserEmail = localStorage.getItem("userEmail") || '';
 const initialUserPhone = localStorage.getItem("userPhone") || '';
-const initialUserId = localStorage.getItem("userId") || ''; // Verifica que initialUserId esté correctamente inicializado
+const initialUserId = localStorage.getItem("userId") || ''; 
+const initialProfileImageUrl = localStorage.getItem("profileImageUrl") || '';
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -15,7 +16,8 @@ const initialState = {
   userLastName: initialUserLastName,
   userEmail: initialUserEmail,
   userPhone: initialUserPhone,
-  userId: initialUserId // Asegúrate de que userId esté presente en el estado inicial
+  userId: initialUserId,
+  profileImageUrl: initialProfileImageUrl
 };
 
 export const isLoggedSlice = createSlice({
@@ -32,13 +34,15 @@ export const isLoggedSlice = createSlice({
       state.userLastName = action.payload.userLastName;
       state.userEmail = action.payload.userEmail;
       state.userPhone = action.payload.userPhone;
-      state.userId = action.payload.userId; // Verifica que userId se actualice correctamente en el estado
+      state.userId = action.payload.userId;
+      state.profileImageUrl = action.payload.profileImageUrl;
       localStorage.setItem("userName", action.payload.userName);
       localStorage.setItem("userFirstName", action.payload.userFirstName);
       localStorage.setItem("userLastName", action.payload.userLastName);
       localStorage.setItem("userEmail", action.payload.userEmail);
       localStorage.setItem("userPhone", action.payload.userPhone);
-      localStorage.setItem("userId", action.payload.userId); // Verifica que userId se guarde correctamente en localStorage
+      localStorage.setItem("userId", action.payload.userId);
+      localStorage.setItem("profileImageUrl", action.payload.profileImageUrl);
     },
     clearLogin: (state) => {
       localStorage.removeItem("token");
@@ -47,7 +51,8 @@ export const isLoggedSlice = createSlice({
       localStorage.removeItem("userLastName");
       localStorage.removeItem("userEmail");
       localStorage.removeItem("userPhone");
-      localStorage.removeItem("userId"); // Añadido
+      localStorage.removeItem("userId");
+      localStorage.removeItem("profileImageUrl");
       state.token = null;
       state.isLoggedIn = false;
       state.userName = '';
@@ -56,6 +61,7 @@ export const isLoggedSlice = createSlice({
       state.userEmail = '';
       state.userPhone = '';
       state.userId = '';
+      state.profileImageUrl = '';
     },
   },
 });

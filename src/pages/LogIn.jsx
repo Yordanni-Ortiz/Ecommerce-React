@@ -11,7 +11,7 @@ import { setIsLoading } from "../store/slices/isLoading.slice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faEye, faEyeSlash, faXmark, } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faEye, faEyeSlash, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [userName, setUserName] = useState("yord");
@@ -38,7 +38,7 @@ const Login = () => {
       .post("http://localhost:8080/api/v1/users/login", data)
       .then((resp) => {
         localStorage.setItem("token", resp.data.token);
-        console.log("data:", resp.data);
+        //console.log("data:", resp.data);
         dispatch(
           setIsLogged({
             userName: resp.data.user.userName,
@@ -47,6 +47,7 @@ const Login = () => {
             userEmail: resp.data.user.email,
             userPhone: resp.data.user.phone,
             userId: resp.data.user.id,
+            profileImageUrl: resp.data.user.profileImageUrl
           })
         );
 
@@ -56,7 +57,7 @@ const Login = () => {
         localStorage.setItem("userEmail", resp.data.user.email);
         localStorage.setItem("userPhone", resp.data.user.phone);
         localStorage.setItem("userId", resp.data.user.id);
-        //console.log("LocalStorage userId:", localStorage.getItem("userId"));
+        localStorage.setItem("profileImageUrl", resp.data.user.profileImageUrl);
         loginSuccessful();
         resetForm();
       })
@@ -94,7 +95,7 @@ const Login = () => {
   const loginError = () => toast("✘ Login failed. Please try again.");
 
   return (
-    <div className="card-login-container" >
+    <div className="card-login-container">
       <Card className="card-login">
         <Form onSubmit={handleSubmit}>
           <h1>Login</h1>
