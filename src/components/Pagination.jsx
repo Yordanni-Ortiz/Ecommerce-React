@@ -1,96 +1,65 @@
-import { useState, useEffect } from "react";
-import useList from "/src/hooks/useList";
-import {
-  ChevronLeft,
-  ChevronDoubleLeft,
-  ChevronRight,
-  ChevronDoubleRight,
-} from "react-bootstrap-icons";
+import React from 'react';
+import { Pagination as BootstrapPagination } from 'react-bootstrap';
+import "../assets/styles/Pagination.css"
 
-function Pagination({ sendItem, collection, range }) {
-  /* Pagination: Componente que renderiza una lista de botones
-   * que establecen un enlace entre la referencia del boton y
-   * un elemento perteneciente a una coleccion que se quiera
-   * separar por paginas.
-   *
-   *     sendItem: [Callback] es la referencia a una funcion que
-   *     permite enviar el elemento seleccionado, cada vez que se
-   *     haga click.
-   *
-   *     collection: [Array] es la coleccion de datos que se quiere
-   *     seccionar en paginas.
-   *
-   *     range: [Number] establece el tamaño del trozo de
-   *     elementos seleccionables, el cual varia con los
-   *     desplazamientos hacia el siguiente o hacia el anterior.
-   * */
-  const { init, item, chunk, selected, head, prev, next, tail, pointer } =
-    useList(collection, range || 5);
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxPagesToShow = 4;
+    const isTooManyPages = totalPages > maxPagesToShow;
 
-  // cada vez que la coleccion se actuliza o se prepara para cargar
-  // se inicializa la lista
-  useEffect(() => {
-    if (collection.length) init(collection);
-  }, [collection]);
+    if (isTooManyPages) {
+      pages.push(1);
+      let startPage, endPage;
 
-  // cada vez que se selecciona un item, se envia hacia el padre
-  useEffect(() => {
-    sendItem(item);
-  }, [item]);
+      if (currentPage <= 2) {
+        startPage = 2;
+        endPage = maxPagesToShow - 1;
+      } else if (currentPage >= totalPages - 1) {
+        startPage = totalPages - (maxPagesToShow - 2);
+        endPage = totalPages - 1;
+      } else {
+        startPage = currentPage - 1;
+        endPage = currentPage + 1;
+      }
 
-  // se envia el item seleccionado con todas las propiedades
-  const handleClick = (event) => {
-    selected(JSON.parse(event.target.value));
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+
+      pages.push(totalPages);
+    } else {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
   };
 
+  const pages = getPageNumbers();
+
   return (
-    <ul>
-      <li>
-        <button onClick={() => head()} disabled={!Boolean(pointer)}>
-          <ChevronDoubleLeft />
-        </button>
-      </li>
-      <li>
-        <button onClick={() => prev()} disabled={!Boolean(pointer)}>
-          <ChevronLeft />
-        </button>
-      </li>
-      {Boolean(chunk.length) &&
-        chunk.map((page, index) => {
-          return (
-            <li key={index}>
-              <button
-                onClick={handleClick}
-                value={JSON.stringify(page)}
-                style={
-                  page.isTarget
-                    ? { backgroundColor: "red" }
-                    : { backgroundColor: "gray" }
-                }
-              >
-                {page.pos + 1}
-              </button>
-            </li>
-          );
-        })}
-      <li>
-        <button
-          onClick={() => next()}
-          disabled={pointer === collection.length - 1}
-        >
-          <ChevronRight />
-        </button>
-      </li>
-      <li>
-        <button
-          onClick={() => tail()}
-          disabled={pointer === collection.length - 1}
-        >
-          <ChevronDoubleRight />
-        </button>
-      </li>
-    </ul>
+    <BootstrapPagination className="justify-content-center mt-4 container-pagination">
+      <BootstrapPagination.First onClick={() => onPageChange(1)} disabled={currentPage === 1} />
+      <BootstrapPagination.Prev onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1} />
+      {pages.map((page, index) => (
+        <React.Fragment key={page}>
+          {index > 0 && pages[index - 1] !== page - 1 && (
+            <BootstrapPagination.Ellipsis disabled />
+          )}
+          <BootstrapPagination.Item
+            active={page === currentPage}
+            onClick={() => onPageChange(page)}
+          >
+            {page}
+          </BootstrapPagination.Item>
+        </React.Fragment>
+      ))}
+      <BootstrapPagination.Next onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+      <BootstrapPagination.Last onClick={() => onPageChange(totalPages)} disabled={currentPage === totalPages} />
+    </BootstrapPagination>
   );
-}
+};
 
 export default Pagination;

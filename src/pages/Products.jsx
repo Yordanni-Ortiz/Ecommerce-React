@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Carousel from 'react-bootstrap/Carousel';
 import Nav from "react-bootstrap/Nav";
@@ -9,7 +9,6 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
-import getConfig from "/src/utils/getConfig";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsThunk } from "../store/slices/getProducts.slice";
 import { addCartProductThunk } from "/src/store/slices/cartProducts.slice";
@@ -20,7 +19,8 @@ import ReactSlider from 'react-slider';
 import '../assets/styles/RanglerSlider.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ModalAddProducts from "../components/ModalAddProduct"
+import ModalAddProducts from "../components/ModalAddProduct";
+import Pagination from "../components/Pagination";
 
 const Products = () => {
   const products = useSelector((state) => state.getProducts);
@@ -29,12 +29,13 @@ const Products = () => {
   const [input, setInput] = useState("");
   const [priceRange, setPriceRange] = useState([0, 5000]);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [show, setShow] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(9);
+
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  
   
   useEffect(() => {
     dispatch(getProductsThunk());
@@ -49,15 +50,15 @@ const Products = () => {
   }, [products]);
 
   useEffect(() => {
-    // Aquí puedes verificar si el usuario está autenticado, por ejemplo, comprobando un token en el localStorage
-    const token = localStorage.getItem('token'); // Supongamos que guardas el token en localStorage
-    setIsAuthenticated(!!token); // Actualiza el estado de autenticación
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
   }, []);
 
   const filterByCategory = (e) => {
     const name = e.target.name;
     const productsFiltered = products.filter((p) => p.category.name === name);
     setProductsFiltered(productsFiltered);
+    setCurrentPage(1); // Reset page to 1 when filtering
   };
 
   const filterByName = () => {
@@ -65,6 +66,7 @@ const Products = () => {
       prdt.title.toLowerCase().includes(input)
     );
     setProductsFiltered(productsFiltered);
+    setCurrentPage(1); // Reset page to 1 when filtering
   };
 
   const filterByPrice = () => {
@@ -72,17 +74,23 @@ const Products = () => {
       return prdt.price >= priceRange[0] && prdt.price <= priceRange[1];
     });
     setProductsFiltered(productsFiltered);
+    setCurrentPage(1); // Reset page to 1 when filtering
   };
 
   const handleAddCart = (product) => {
     dispatch(addCartProductThunk(product, 1));
     console.log("Producto agregado al carrito", product);
-    successful()
+    successful();
   };
 
   const successful = () => toast("✔ Product add to cart successfully.", {
     autoClose: 2000
   });
+
+  // Calcular los productos actuales
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = productsFiltered.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
     <>
@@ -91,6 +99,7 @@ const Products = () => {
           <Nav.Link
             onClick={() => {
               dispatch(getProductsThunk());
+              setCurrentPage(1);
             }}
           >
             All Products
@@ -147,8 +156,8 @@ const Products = () => {
           </Col>
         </Row>
         <Row xs={1} md={2} lg={3}>
-          {productsFiltered.length > 0 ? (
-            productsFiltered.map((product) => (
+          {currentProducts.length > 0 ? (
+            currentProducts.map((product) => (
               <Col key={product.id}>
                 <Card className="container__cards">
                   <Carousel variant="dark" interval={15000}>
@@ -187,8 +196,8 @@ const Products = () => {
             ))
           ) : (
             <Col className="container-alert">
-                <img className="image-alert" src="/alert.png" alt="No products found" style={{ width: "80%" }} />
-                <h3 className="text-alert">NO SE HAN ENCONTRADO PRODUCTOS CON ESA ESPECIFICACION.</h3>
+              <img className="image-alert" src="/alert.png" alt="No products found" style={{ width: "80%" }} />
+              <h3 className="text-alert">NO SE HAN ENCONTRADO PRODUCTOS CON ESA ESPECIFICACION.</h3>
             </Col>
           )}
         </Row>
@@ -201,10 +210,16 @@ const Products = () => {
           pauseOnHover={true}
         />
       </Container>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(productsFiltered.length / productsPerPage)}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </>
   );
 };
 
 export default Products;
+
 
 
