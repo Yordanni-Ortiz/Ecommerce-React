@@ -19,6 +19,7 @@ function $Navbar() {
   const userName = useSelector((state) => state.isLogged.userName);
   const userFirstName = useSelector((state) => state.isLogged.userFirstName);
   const userLastName = useSelector((state) => state.isLogged.userLastName);
+  const profileImageUrl = useSelector((state) => state.isLogged.profileImageUrl);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -55,8 +56,8 @@ function $Navbar() {
   };
 
   const handleDropdownItemClick = () => {
-    setIsOpen(false); // Cierra el menú desplegable cuando se hace clic en una opción
-    setIsMenuOpen(false); // Cierra el menú hamburguesa también
+    setIsOpen(false);
+    setIsMenuOpen(false);
   };
 
   const getFirstNameInitials = (firstName) => {
@@ -67,15 +68,13 @@ function $Navbar() {
 
   const getLastNameInitials = (lastName) => {
     if (!lastName) {
-      return ''; // Devuelve una cadena vacía o maneja la situación de forma apropiada si lastName es undefined o null
+      return '';
     }
 
     const nameArray = lastName.trim().split(" ");
     if (nameArray.length > 1) {
-      // Si hay más de un nombre, obtenemos la inicial del último nombre
       return nameArray[nameArray.length - 1][0].toUpperCase();
     } else {
-      // Si solo hay un nombre, obtenemos la inicial del nombre completo
       return nameArray[0][0].toUpperCase();
     }
   };
@@ -88,6 +87,14 @@ function $Navbar() {
     setIsMenuOpen(false);
     navigate(path);
   };
+
+  // Acceder a la variable de entorno
+  const defaultProfileImage = import.meta.env.VITE_PROFILE_IMAGE;
+
+  // Log para depuración
+  console.log("profileImageUrl: ", profileImageUrl);
+  console.log("defaultProfileImage: ", defaultProfileImage);
+  console.log("profileImageUrl === defaultProfileImage: ", profileImageUrl === defaultProfileImage);
 
   return (
     <>
@@ -122,8 +129,14 @@ function $Navbar() {
               <div className="user-dropdown-container" ref={dropdownRef}>
                 <div className="user-name" onClick={toggleDropdown}>
                   <div className="user-photo">
-                    <div className="initial-name">{getFirstNameInitials(userFirstName)}</div>
-                    <div className="initial-name">{getLastNameInitials(userLastName)}</div>
+                    {profileImageUrl && profileImageUrl !== defaultProfileImage ? (
+                      <img src={profileImageUrl} alt="Profile" className="profile-image" />
+                    ) : (
+                      <div className="user-initials-name">
+                        <div className="initial-name">{getFirstNameInitials(userFirstName)}</div>
+                        <div className="initial-name">{getLastNameInitials(userLastName)}</div>
+                      </div>
+                    )}
                   </div>
                   <div className="user-name-name">{userName.toUpperCase()} <span className="centered-character">ˇ</span></div>
                 </div>
