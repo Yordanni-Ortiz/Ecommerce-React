@@ -91,7 +91,7 @@ const Login = () => {
     <div className="card-login-container">
       <Card className="card-login">
         <Form onSubmit={handleSubmit}>
-          <h1>Login</h1>
+          <h1>Sign in</h1>
           {errors.general && <p className="error-message">{errors.general}</p>}
           <Form.Group className="mb-3" controlId="formBasicUserEmail">
             <Form.Label>User</Form.Label>
@@ -148,7 +148,7 @@ const Login = () => {
             )}
           </Form.Group>
           <Button variant="warning" type="submit">
-            Submit
+            Sign In
           </Button>
           <div className="mt-3">
             <p>
