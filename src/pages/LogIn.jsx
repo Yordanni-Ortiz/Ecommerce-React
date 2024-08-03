@@ -38,7 +38,6 @@ const Login = () => {
       .post("http://localhost:8080/api/v1/users/login", data)
       .then((resp) => {
         localStorage.setItem("token", resp.data.token);
-        console.log("data:", resp.data);
         dispatch(
           setIsLogged({
             userName: resp.data.user.userName,
@@ -60,8 +59,8 @@ const Login = () => {
         localStorage.setItem("userId", resp.data.user.id);
         localStorage.setItem("profileImageUrl", resp.data.user.profileImageUrl);
         localStorage.setItem("createdAt", resp.data.user.createdAt);
-        loginSuccessful();
         resetForm();
+        navigate("/");
       })
       .catch((error) => {
         if (
@@ -85,14 +84,6 @@ const Login = () => {
     setUserName("");
     setPassword("");
   };
-
-  const loginSuccessful = () =>
-    toast("✔ Login successful! Redirecting...", {
-      onClose: () => {
-        navigate("/");
-        window.location.reload();
-      },
-    });
 
   const loginError = () => toast("✘ Login failed. Please try again.");
 
