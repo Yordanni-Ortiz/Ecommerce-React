@@ -92,9 +92,9 @@ function $Navbar() {
   const defaultProfileImage = import.meta.env.VITE_PROFILE_IMAGE;
 
   // Log para depuración
-  console.log("profileImageUrl: ", profileImageUrl);
-  console.log("defaultProfileImage: ", defaultProfileImage);
-  console.log("profileImageUrl === defaultProfileImage: ", profileImageUrl === defaultProfileImage);
+ // console.log("profileImageUrl: ", profileImageUrl);
+ // console.log("defaultProfileImage: ", defaultProfileImage);
+ // console.log("profileImageUrl === defaultProfileImage: ", profileImageUrl === defaultProfileImage);
 
   return (
     <>

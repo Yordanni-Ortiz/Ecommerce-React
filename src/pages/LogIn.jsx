@@ -38,7 +38,7 @@ const Login = () => {
       .post("http://localhost:8080/api/v1/users/login", data)
       .then((resp) => {
         localStorage.setItem("token", resp.data.token);
-        //console.log("data:", resp.data);
+        console.log("data:", resp.data);
         dispatch(
           setIsLogged({
             userName: resp.data.user.userName,
@@ -47,7 +47,8 @@ const Login = () => {
             userEmail: resp.data.user.email,
             userPhone: resp.data.user.phone,
             userId: resp.data.user.id,
-            profileImageUrl: resp.data.user.profileImageUrl
+            profileImageUrl: resp.data.user.profileImageUrl,
+            createdAt: resp.data.user.createdAt
           })
         );
 
@@ -58,6 +59,7 @@ const Login = () => {
         localStorage.setItem("userPhone", resp.data.user.phone);
         localStorage.setItem("userId", resp.data.user.id);
         localStorage.setItem("profileImageUrl", resp.data.user.profileImageUrl);
+        localStorage.setItem("createdAt", resp.data.user.createdAt);
         loginSuccessful();
         resetForm();
       })

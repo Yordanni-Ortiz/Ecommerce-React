@@ -8,6 +8,9 @@
   padding: 16px;
   width: 69.7%;
 }
+#purchases .card-purchases {
+  margin: 1rem;
+}
 #purchases .card-body .card-text:nth-child(1) {
   width: 300px;
   white-space: nowrap;
@@ -34,11 +37,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/*
-#purchases .time {
-  display: inline-flex;
-  width: 30%;
-}*/
 #purchases .day {
   padding-right: 10px;
 }
@@ -47,6 +45,49 @@
   right: 16px;
   top: 29px;
   transform: translateY(50%);
+}
+/* Filtrado de las compras */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 16px;
+}
+.select-month .select__control, 
+.select-year .select__control {
+  background-color: #131921; 
+  width: 150px;
+  border: none;
+  box-shadow: none;
+}
+.select-month .select__single-value, 
+.select-year .select__single-value {
+  color: #ffffff; 
+}
+.select-month .select__menu, 
+.select-year .select__menu {
+  background-color: #131921; 
+  color: #ffffff;
+}
+.select-month .select__option, 
+.select-year .select__option {
+  background-color: #131921; 
+  color: #ffffff;
+  padding: 2px 12px;
+}
+.select-month .select__option--is-selected, 
+.select-year .select__option--is-selected {
+  background-color: none; 
+  color: #ffffff;
+}
+.select-month .select__option--is-focused:hover,
+.select-year .select__option--is-focused:hover {
+  background-color: #5958585d; 
+}
+.container-purchases .no-purchases-found {
+  margin-top: 20px !important;
+  font-size: 20px;
 }
 
 @media (max-width: 1200px){
@@ -90,5 +131,12 @@
   }
   #purchases .card-body .card-text:nth-child(1) {
     width: 100px;
+  }
+  .select-month .select__control, 
+  .select-year .select__control {
+    width: 120px;
+  } 
+  .container-purchases .no-purchases-found {
+    font-size: 15px;
   }
 }

@@ -7,6 +7,7 @@ const initialUserEmail = localStorage.getItem("userEmail") || '';
 const initialUserPhone = localStorage.getItem("userPhone") || '';
 const initialUserId = localStorage.getItem("userId") || ''; 
 const initialProfileImageUrl = localStorage.getItem("profileImageUrl") || '';
+const initialCreatedAt = localStorage.getItem("createdAt") || '';
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -17,7 +18,8 @@ const initialState = {
   userEmail: initialUserEmail,
   userPhone: initialUserPhone,
   userId: initialUserId,
-  profileImageUrl: initialProfileImageUrl
+  profileImageUrl: initialProfileImageUrl,
+  createdAt: initialCreatedAt
 };
 
 export const isLoggedSlice = createSlice({
@@ -36,6 +38,7 @@ export const isLoggedSlice = createSlice({
       state.userPhone = action.payload.userPhone;
       state.userId = action.payload.userId;
       state.profileImageUrl = action.payload.profileImageUrl;
+      state.createdAt = action.payload.createdAt;
       localStorage.setItem("userName", action.payload.userName);
       localStorage.setItem("userFirstName", action.payload.userFirstName);
       localStorage.setItem("userLastName", action.payload.userLastName);
@@ -43,6 +46,7 @@ export const isLoggedSlice = createSlice({
       localStorage.setItem("userPhone", action.payload.userPhone);
       localStorage.setItem("userId", action.payload.userId);
       localStorage.setItem("profileImageUrl", action.payload.profileImageUrl);
+      localStorage.setItem("createdAt", action.payload.createdAt);
     },
     clearLogin: (state) => {
       localStorage.removeItem("token");
@@ -53,6 +57,7 @@ export const isLoggedSlice = createSlice({
       localStorage.removeItem("userPhone");
       localStorage.removeItem("userId");
       localStorage.removeItem("profileImageUrl");
+      localStorage.removeItem("createdAt");
       state.token = null;
       state.isLoggedIn = false;
       state.userName = '';
@@ -62,6 +67,7 @@ export const isLoggedSlice = createSlice({
       state.userPhone = '';
       state.userId = '';
       state.profileImageUrl = '';
+      state.createdAt = '';
     },
   },
 });
